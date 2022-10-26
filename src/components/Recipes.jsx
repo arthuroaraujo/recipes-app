@@ -21,7 +21,14 @@ function Recipes() {
   }, []);
 
   return (
-    recipes.map((meal, i) => (<div key={ i }>{meal.idMeal}</div>))
+    recipes.map((meal, i) => (
+      <div key={ i } data-testid={ `${i}-recipe-card` }>
+        <img src={ meal.strMealThumb } alt="comida" data-testid={ `${i}-card-img` } />
+        <h4 data-testid={ `${i}-card-name` }>
+          { meal.strMeal }
+        </h4>
+        {meal.idMeal}
+      </div>))
   );
 }
 
