@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Card from './Card';
+import Categories from './Categories';
 
 function Recipes() {
   const { recipes, setRecipes } = useContext(AppContext);
@@ -22,14 +23,18 @@ function Recipes() {
   }, []);
 
   return (
-    recipes.map((recipe, i) => (
-      <Card
-        key={ recipeUrl === 'meals' ? recipe.idMeal : recipe.idDrink }
-        index={ i }
-        src={ recipeUrl === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb }
-        name={ recipeUrl === 'meals' ? recipe.strMeal : recipe.strDrink }
-      />
-    )));
+    <>
+      <Categories />
+      {recipes.map((recipe, i) => (
+        <Card
+          key={ recipeUrl === 'meals' ? recipe.idMeal : recipe.idDrink }
+          index={ i }
+          src={ recipeUrl === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb }
+          name={ recipeUrl === 'meals' ? recipe.strMeal : recipe.strDrink }
+        />
+      ))}
+    </>
+  );
 }
 
 export default Recipes;

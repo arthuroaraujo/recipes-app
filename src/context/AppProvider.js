@@ -14,6 +14,7 @@ function AppProvider({ children }) {
   const [cocktailIngredients, setCocktailIngredients] = useState([]);
   const [error, setError] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const requestMealIngredients = async (ingredient) => {
     const endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
@@ -89,8 +90,6 @@ function AppProvider({ children }) {
 
   const getTitle = useCallback((id) => {
     const { pathname } = location;
-    // const pathnameList = pathname.split('/');
-    // const id = pathnameList[pathnameList.length - 1];
     switch (pathname) {
     case '/meals':
       return 'Meals';
@@ -137,6 +136,7 @@ function AppProvider({ children }) {
           recipes,
           cocktailIngredients,
           error,
+          categories,
           setProducts,
           setEmail,
           setPassword,
@@ -151,6 +151,7 @@ function AppProvider({ children }) {
           requestCocktailIngredients,
           requestCocktailName,
           requestCocktailFirstLetter,
+          setCategories,
         }),
         [products,
           email,
@@ -161,6 +162,7 @@ function AppProvider({ children }) {
           mealIngredients,
           cocktailIngredients,
           recipes,
+          categories,
           error],
       ) }
     >
