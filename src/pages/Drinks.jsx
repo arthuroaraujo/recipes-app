@@ -5,7 +5,9 @@ import AppContext from '../context/AppContext';
 import Footer from '../components/Footer';
 
 function Drinks() {
-  const { cocktailIngredients, error } = useContext(AppContext);
+  const { cocktailIngredients,
+    error,
+    mealsRecomendations } = useContext(AppContext);
   const twelve = 12;
 
   const alertWarning = () => {
@@ -16,6 +18,7 @@ function Drinks() {
 
   return (
     <div className="content-container">
+      { console.log(mealsRecomendations)}
       <Header />
       {error && alertWarning()}
       {cocktailIngredients ? cocktailIngredients

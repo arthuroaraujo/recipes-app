@@ -1,12 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-// import Meals from '../pages/Meals';
 import App from '../App';
+import renderWithRouter from './helpers/renderWith';
 
 describe('Testes para o componete footer', () => {
   test('', () => {
-    render(<App />);
+    renderWithRouter(<App />);
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
     const submitButton = screen.getByTestId('login-submit-btn');

@@ -1,20 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import Card from '../components/Card';
 import AppContext from '../context/AppContext';
 import Footer from '../components/Footer';
 
 function Meals() {
-  const { mealIngredients, error } = useContext(AppContext);
+  const { mealIngredients,
+    error,
+    drinksRecomendations,
+    requestRecomendedCocktail } = useContext(AppContext);
   const twelve = 12;
 
   const alertWarning = () => {
     global.alert('Sorry, we haven\'t found any recipes for these filters.');
   };
 
+  useEffect(() => {
+    requestRecomendedCocktail();
+  }, []);
+
   return (
     <div className="content-container">
       <Header />
+      {console.log(drinksRecomendations)}
       {error && alertWarning()}
       {mealIngredients ? mealIngredients
         .slice(0, twelve)

@@ -13,6 +13,8 @@ function AppProvider({ children }) {
   const [mealIngredients, setMealIngredients] = useState([]);
   const [cocktailIngredients, setCocktailIngredients] = useState([]);
   const [error, setError] = useState(false);
+  const [drinksRecomendations, setDrinksRecomendations] = useState([]);
+  const [mealsRecomendations, setMealsRecomendations] = useState([]);
 
   const requestMealIngredients = async (ingredient) => {
     const endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
@@ -86,6 +88,20 @@ function AppProvider({ children }) {
     }
   };
 
+  const requestRecomendedMeal = async () => {
+    const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const response = await fetch(endPoint);
+    const { meals } = await response.json();
+    setMealsRecomendations(meals);
+  };
+
+  const requestRecomendedCocktail = async () => {
+    const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const response = await fetch(endPoint);
+    const { drinks } = await response.json();
+    setDrinksRecomendations(drinks);
+  };
+
   const getTitle = useCallback((id) => {
     const { pathname } = location;
     // const pathnameList = pathname.split('/');
@@ -107,10 +123,10 @@ function AppProvider({ children }) {
       return 'Favorite Recipes';
 
     case `/meals/${id}`:
-      return 'Recipe';
+      return 'Recipe Details';
 
     case `/drinks/${id}`:
-      return 'Recipe';
+      return 'Recipe Details';
 
     case `/meals/${id}/in-progress`:
       return 'InProgress';
@@ -147,6 +163,10 @@ function AppProvider({ children }) {
           requestCocktailName,
           requestCocktailFirstLetter,
           error,
+          mealsRecomendations,
+          requestRecomendedMeal,
+          drinksRecomendations,
+          requestRecomendedCocktail,
         }),
         [products,
           email,
@@ -156,7 +176,9 @@ function AppProvider({ children }) {
           searchInput,
           mealIngredients,
           cocktailIngredients,
-          error],
+          error,
+          mealsRecomendations,
+          drinksRecomendations],
       ) }
     >
       {children}
