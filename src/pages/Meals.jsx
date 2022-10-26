@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Header from '../components/Header';
 import Card from '../components/Card';
 import AppContext from '../context/AppContext';
+import Footer from '../components/Footer';
 
 function Meals() {
   const { mealIngredients, error } = useContext(AppContext);
@@ -12,7 +13,7 @@ function Meals() {
   };
 
   return (
-    <div>
+    <div className="content-container">
       <Header />
       {error && alertWarning()}
       {mealIngredients ? mealIngredients
@@ -25,7 +26,7 @@ function Meals() {
             index={ index }
           />
         )) : null}
-
+      <Footer />
     </div>
   );
 }
