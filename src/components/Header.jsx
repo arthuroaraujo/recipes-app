@@ -39,7 +39,6 @@ function Header() {
           alt="Search Icon"
           onClick={ () => {
             setSearchInput((prevState) => !prevState);
-            // setRecipes([]);
           } }
         >
           Buscar

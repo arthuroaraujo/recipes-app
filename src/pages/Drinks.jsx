@@ -18,7 +18,7 @@ function Drinks() {
   return (
     <div className="content-container">
       <Header />
-      {searchInput || cocktailIngredients.length !== 0 ? null : <Recipes />}
+      {searchInput && cocktailIngredients.length !== 0 ? null : <Recipes />}
       {error && alertWarning()}
       {cocktailIngredients ? cocktailIngredients
         .slice(0, twelve)
