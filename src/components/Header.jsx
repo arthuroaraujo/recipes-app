@@ -18,7 +18,7 @@ function Header() {
   };
 
   return (
-    <div>
+    <header>
       <h1
         data-testid="page-title"
       >
@@ -31,15 +31,22 @@ function Header() {
         alt="Profile Icon"
         onClick={ handleClick }
       />
-      {pages.includes(getTitle()) ? null : <input
-        type="button"
-        data-testid="search-top-btn"
-        src={ search }
-        alt="Search Icon"
-        onClick={ () => setSearchInput((prevState) => !prevState) }
-      />}
+      {pages.includes(getTitle()) ? null : (
+        <button
+          type="button"
+          data-testid="search-top-btn"
+          src={ search }
+          alt="Search Icon"
+          onClick={ () => {
+            setSearchInput((prevState) => !prevState);
+            setRecipes([]);
+          } }
+        >
+          Buscar
+
+        </button>)}
       {searchInput && <SearchBar />}
-    </div>
+    </header>
   );
 }
 

@@ -13,6 +13,7 @@ function AppProvider({ children }) {
   const [mealIngredients, setMealIngredients] = useState([]);
   const [cocktailIngredients, setCocktailIngredients] = useState([]);
   const [error, setError] = useState(false);
+  const [recipes, setRecipes] = useState([]);
 
   const requestMealIngredients = async (ingredient) => {
     const endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
@@ -26,7 +27,7 @@ function AppProvider({ children }) {
     }
   };
 
-  const requestMealName = async (name) => {
+  const requestMealName = async (name = '') => {
     const endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
     const response = await fetch(endPoint);
     const { meals } = await response.json();
@@ -128,25 +129,28 @@ function AppProvider({ children }) {
       value={ useMemo(
         () => ({
           products,
-          setProducts,
           email,
-          setEmail,
           password,
-          setPassword,
           isDisabledButton,
+          searchInput,
+          mealIngredients,
+          recipes,
+          cocktailIngredients,
+          error,
+          setProducts,
+          setEmail,
+          setPassword,
           setIsDisabledButton,
           getTitle,
-          searchInput,
           setSearchInput,
-          mealIngredients,
+          setRecipes,
+          setMealIngredients,
           requestMealIngredients,
           requestMealName,
           requestMealFirstLetter,
-          cocktailIngredients,
           requestCocktailIngredients,
           requestCocktailName,
           requestCocktailFirstLetter,
-          error,
         }),
         [products,
           email,
@@ -156,6 +160,7 @@ function AppProvider({ children }) {
           searchInput,
           mealIngredients,
           cocktailIngredients,
+          recipes,
           error],
       ) }
     >
