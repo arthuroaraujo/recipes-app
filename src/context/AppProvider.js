@@ -10,9 +10,86 @@ function AppProvider({ children }) {
   const [password, setPassword] = useState('');
   const [isDisabledButton, setIsDisabledButton] = useState(true);
   const [searchInput, setSearchInput] = useState(false);
+  const [mealIngredients, setMealIngredients] = useState([]);
+  const [cocktailIngredients, setCocktailIngredients] = useState([]);
+  const [error, setError] = useState(false);
 
-  const getTitle = useCallback(() => {
+  const requestMealIngredients = async (ingredient) => {
+    const endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    const response = await fetch(endPoint);
+    const { meals } = await response.json();
+    if (meals === null) {
+      setError(true);
+    } else {
+      setError(false);
+      setMealIngredients(meals);
+    }
+  };
+
+  const requestMealName = async (name) => {
+    const endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+    const response = await fetch(endPoint);
+    const { meals } = await response.json();
+    if (meals === null) {
+      setError(true);
+    } else {
+      setError(false);
+      setMealIngredients(meals);
+    }
+  };
+
+  const requestMealFirstLetter = async (firstLetter) => {
+    const endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+    const response = await fetch(endPoint);
+    const { meals } = await response.json();
+    if (meals === null) {
+      setError(true);
+    } else {
+      setError(false);
+      setMealIngredients(meals);
+    }
+  };
+
+  const requestCocktailIngredients = async (ingredient) => {
+    const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    const response = await fetch(endPoint);
+    const { drinks } = await response.json();
+    if (drinks === null) {
+      setError(true);
+    } else {
+      setError(false);
+      setCocktailIngredients(drinks);
+    }
+  };
+
+  const requestCocktailName = async (name) => {
+    const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
+    const response = await fetch(endPoint);
+    const { drinks } = await response.json();
+    if (drinks === null) {
+      setError(true);
+    } else {
+      setError(false);
+      setCocktailIngredients(drinks);
+    }
+  };
+
+  const requestCocktailFirstLetter = async (firstLetter) => {
+    const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+    const response = await fetch(endPoint);
+    const { drinks } = await response.json();
+    if (drinks === null) {
+      setError(true);
+    } else {
+      setError(false);
+      setCocktailIngredients(drinks);
+    }
+  };
+
+  const getTitle = useCallback((id) => {
     const { pathname } = location;
+    // const pathnameList = pathname.split('/');
+    // const id = pathnameList[pathnameList.length - 1];
     switch (pathname) {
     case '/meals':
       return 'Meals';
@@ -28,6 +105,18 @@ function AppProvider({ children }) {
 
     case '/favorite-recipes':
       return 'Favorite Recipes';
+
+    case `/meals/${id}`:
+      return 'Recipe';
+
+    case `/drinks/${id}`:
+      return 'Recipe';
+
+    case `/meals/${id}/in-progress`:
+      return 'InProgress';
+
+    case `/drinks/${id}/in-progress`:
+      return 'InProgress';
 
     default:
       return 'Not Found';
@@ -49,8 +138,25 @@ function AppProvider({ children }) {
           getTitle,
           searchInput,
           setSearchInput,
+          mealIngredients,
+          requestMealIngredients,
+          requestMealName,
+          requestMealFirstLetter,
+          cocktailIngredients,
+          requestCocktailIngredients,
+          requestCocktailName,
+          requestCocktailFirstLetter,
+          error,
         }),
-        [products, email, password, isDisabledButton, getTitle, searchInput],
+        [products,
+          email,
+          password,
+          isDisabledButton,
+          getTitle,
+          searchInput,
+          mealIngredients,
+          cocktailIngredients,
+          error],
       ) }
     >
       {children}
