@@ -137,6 +137,7 @@ function AppProvider({ children }) {
           cocktailIngredients,
           error,
           categories,
+          setCocktailIngredients,
           setProducts,
           setEmail,
           setPassword,
@@ -153,7 +154,8 @@ function AppProvider({ children }) {
           requestCocktailFirstLetter,
           setCategories,
         }),
-        [products,
+        [
+          products,
           email,
           password,
           isDisabledButton,

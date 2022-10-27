@@ -19,7 +19,7 @@ function Recipes() {
 
   useEffect(() => {
     fetch(url).then((response) => response.json())
-      .then((data) => setRecipes(data[recipeUrl].slice(0, twelve)));
+      .then((data) => setRecipes(data[recipeUrl].splice(0, twelve)));
   }, []);
 
   return (

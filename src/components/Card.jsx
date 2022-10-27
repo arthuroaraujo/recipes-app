@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Card({ index, src, name }) {
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <div data-testid={ `${index}-recipe-card` } data-url="">
       <img data-testid={ `${index}-card-img` } src={ src } alt={ name } />
       <h4 data-testid={ `${index}-card-name` }>{ name }</h4>
     </div>
