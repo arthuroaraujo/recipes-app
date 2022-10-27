@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWith';
@@ -100,9 +100,14 @@ describe('Testando a Search Bar para Meals', () => {
     userEvent.click(radioNameElement);
     userEvent.click(getResultButtonElement);
 
-    expect(await screen.findByRole('heading', {
+    await waitFor(() => screen.findByRole('heading', {
+      name: /Beef and Mustard Pie/i,
+    }), { timeout: 10000 });
+
+    expect(screen.getByRole('heading', {
       name: /Beef and Mustard Pie/i,
     })).toBeInTheDocument();
+
     expect(history.location.pathname).toBe('/meals/52874');
-  });
+  }, 10000);
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWith';
@@ -70,30 +70,6 @@ describe('Testando a Search Bar para Drinks', () => {
     userEvent.click(radioFirstLetterElement);
     userEvent.click(getResultButtonElement);
   });
-  test('Testando a Search Bar e botão Name', async () => {
-    const { history } = renderWithRouter(<App />, { initialEntries: ['/drinks'] });
-
-    expect(history.location.pathname).toBe('/drinks');
-    expect(await screen.findByTestId(pageTitle)).toBeInTheDocument();
-
-    const searchButtonElement = screen.getByTestId(searchTopBtn);
-    userEvent.click(searchButtonElement);
-
-    const searchBarElement = screen.getByTestId(searchInput);
-
-    const radioNameElement = screen.getByTestId(nameSearchRadio);
-
-    const getResultButtonElement = screen.getByTestId(execSearchButton);
-
-    userEvent.type(searchBarElement, 'blue margarita');
-    userEvent.click(radioNameElement);
-    userEvent.click(getResultButtonElement);
-
-    expect(await screen.findByRole('heading', {
-      name: /blue margarita/i,
-    })).toBeInTheDocument();
-    expect(history.location.pathname).toBe('/drinks/11118');
-  });
 
   test('Testando a Search Bar e botão First Letter errado', async () => {
     const { history } = renderWithRouter(<App />, { initialEntries: ['/drinks'] });
@@ -114,4 +90,33 @@ describe('Testando a Search Bar para Drinks', () => {
     userEvent.click(radioFirstLetterElement);
     userEvent.click(getResultButtonElement);
   });
+  test('Testando a Search Bar e botão Name', async () => {
+    const { history } = renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+
+    expect(history.location.pathname).toBe('/drinks');
+    expect(await screen.findByTestId(pageTitle)).toBeInTheDocument();
+
+    const searchButtonElement = screen.getByTestId(searchTopBtn);
+    userEvent.click(searchButtonElement);
+
+    const searchBarElement = screen.getByTestId(searchInput);
+
+    const radioNameElement = screen.getByTestId(nameSearchRadio);
+
+    const getResultButtonElement = screen.getByTestId(execSearchButton);
+
+    userEvent.type(searchBarElement, 'blue margarita');
+    userEvent.click(radioNameElement);
+    userEvent.click(getResultButtonElement);
+
+    await waitFor(() => screen.findByRole('heading', {
+      name: /blue margarita/i,
+    }), { timeout: 10000 });
+
+    expect(screen.getByRole('heading', {
+      name: /blue margarita/i,
+    })).toBeInTheDocument();
+
+    expect(history.location.pathname).toBe('/drinks/11118');
+  }, 10000);
 });
