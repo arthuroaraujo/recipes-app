@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
+// import clipboardCopy from 'clipboard-copy';
 
 import Header from '../components/Header';
 import InstructionCard from '../components/InstructionCard';
@@ -14,16 +15,21 @@ function RecipeDetails() {
   const [arrayOfIngredients, setArrayOfIngredients] = useState([]);
   const [arrayOfMeasures, setArrayOfMeasures] = useState([]);
   const [imagIndex, setImgIndex] = useState(0);
+  // const copy = clipboardCopy();
+  // const [isInProgress, setIsInProgress] = useState(false);
+  // console.log(setIsInProgress);
 
   const { id } = useParams();
 
   const { pathname } = useLocation();
+  const history = useHistory();
 
   const { requestRecomendedCocktail,
     requestRecomendedMeal,
     mealsRecomendations,
     drinksRecomendations } = useContext(AppContext);
 
+  const five = 5;
   const six = 6;
   const minusOne = -1;
 
@@ -73,11 +79,10 @@ function RecipeDetails() {
   }, []);
 
   const plusSlides = (nextMove) => {
-    console.log(imagIndex, 'primeiro');
-    if (imagIndex === six && nextMove === 1) {
+    if (imagIndex === five && nextMove === 1) {
       setImgIndex(0);
     } else if (imagIndex === 0 && nextMove === minusOne) {
-      setImgIndex(six);
+      setImgIndex(five);
     } else if (nextMove === minusOne) {
       setImgIndex((prev) => prev - 1);
     } else { setImgIndex((prev) => prev + 1); }
@@ -85,7 +90,6 @@ function RecipeDetails() {
 
   return (
     <div>
-
       <Header />
       { isLoading ? <p>Loading...</p> : <InstructionCard
         unchangedArray={ recipeDetails }
@@ -100,7 +104,6 @@ function RecipeDetails() {
         measuresArray={ arrayOfMeasures }
       /> }
       <div className="slideshow-container">
-        {console.log(drinksRecomendations)}
         {recipeType === 'meals'
           ? drinksRecomendations
             .slice(0, six)
@@ -142,6 +145,34 @@ function RecipeDetails() {
           &#10095;
 
         </button>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          style={ { position: 'fixed',
+            zIndex: 2,
+            bottom: 0 } }
+          onClick={ () => history.push(`/${recipeType}/${id}/in-progress`) }
+          // onClick={ () => setIsInProgress((prev) => !prev) }
+        >
+          {/* {isInProgress ? 'Continue Recipe' : 'Start Recipe'} */}
+          Start Recipe
+        </button>
+        {/* <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ () => copy(`http://localhost:3000/${recipeType}/${id}`) }
+        >
+          Share
+
+        </button>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+        >
+          Favorite
+
+        </button> */}
       </div>
     </div>
   );

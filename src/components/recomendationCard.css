@@ -79,3 +79,10 @@
 .active, .dot:hover {
   background-color: #717171;
 }
+
+
+.start-recipe.btn {
+  position: fixed;
+  z-index: 2;
+  bottom: 0
+}

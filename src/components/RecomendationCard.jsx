@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function RecomendationCard({ index, src, name, imagIndex }) {
   return (
     <div>
-      {imagIndex === index ? (
+      {(imagIndex === index || imagIndex === index - 1) ? (
         <div
           className="mySlides"
           data-testid={ `${index}-recommendation-card` }
