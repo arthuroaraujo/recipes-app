@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
 import Card from '../components/Card';
 import AppContext from '../context/AppContext';
@@ -7,17 +7,12 @@ import Footer from '../components/Footer';
 function Meals() {
   const { mealIngredients,
     error,
-    drinksRecomendations,
-    requestRecomendedCocktail } = useContext(AppContext);
+    drinksRecomendations } = useContext(AppContext);
   const twelve = 12;
 
   const alertWarning = () => {
     global.alert('Sorry, we haven\'t found any recipes for these filters.');
   };
-
-  useEffect(() => {
-    requestRecomendedCocktail();
-  }, []);
 
   return (
     <div className="content-container">

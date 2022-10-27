@@ -24,20 +24,29 @@ function Header() {
       >
         {getTitle(id)}
       </h1>
-      <input
+
+      <button
         type="button"
         data-testid="profile-top-btn"
         src={ profile }
-        alt="Profile Icon"
         onClick={ handleClick }
-      />
-      {pages.includes(getTitle()) ? null : <input
-        type="button"
-        data-testid="search-top-btn"
-        src={ search }
-        alt="Search Icon"
-        onClick={ () => setSearchInput((prevState) => !prevState) }
-      />}
+        style={ { height: '35px', width: '35px' } }
+      >
+        <img src={ profile } alt="profile-button" />
+
+      </button>
+      {pages.includes(getTitle()) ? null : (
+        <button
+          type="button"
+          data-testid="search-top-btn"
+          src={ search }
+          onClick={ () => setSearchInput((prevState) => !prevState) }
+          style={ { height: '35px', width: '35px' } }
+        >
+          <img src={ search } alt="search-button" />
+
+        </button>
+      )}
       {searchInput && <SearchBar />}
     </div>
   );

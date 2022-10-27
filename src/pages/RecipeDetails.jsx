@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
-// import clipboardCopy from 'clipboard-copy';
-
+import copy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Header from '../components/Header';
 import InstructionCard from '../components/InstructionCard';
 import RecomendationCard from '../components/RecomendationCard';
@@ -11,11 +13,13 @@ import '../components/recomendationCard.css';
 function RecipeDetails() {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [recipeType, setRecipeType] = useState('');
+  const [recipeType2, setRecipeType2] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [arrayOfIngredients, setArrayOfIngredients] = useState([]);
   const [arrayOfMeasures, setArrayOfMeasures] = useState([]);
   const [imagIndex, setImgIndex] = useState(0);
-  // const copy = clipboardCopy();
+  const [isCopied, setIsCopied] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
   // const [isInProgress, setIsInProgress] = useState(false);
   // console.log(setIsInProgress);
 
@@ -50,6 +54,7 @@ function RecipeDetails() {
       setRecipeDetails(meals[0]);
       ingredientsToArray(meals[0]);
       setRecipeType('meals');
+      setRecipeType2('meal');
     } else {
       const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
@@ -58,6 +63,7 @@ function RecipeDetails() {
       setRecipeDetails(drinks[0]);
       ingredientsToArray(drinks[0]);
       setRecipeType('drinks');
+      setRecipeType2('drink');
     }
   };
 
@@ -88,6 +94,47 @@ function RecipeDetails() {
     } else { setImgIndex((prev) => prev + 1); }
   };
 
+  const handleShareButton = () => {
+    copy(`http://localhost:3000/${recipeType}/${id}`);
+    setIsCopied(true);
+  };
+
+  useEffect(() => {
+    const prevFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
+    const isItFavorite = prevFavRecipes.find((e) => +(e.id) === +(id));
+
+    if (isItFavorite) {
+      setIsFavorited(true);
+    }
+  }, []);
+
+  const handleFavoriteButton = () => {
+    const prevFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
+    const isItFavorite = prevFavRecipes.find((e) => +(e.id) === +(id));
+
+    const newFavRecipes = {
+      id: recipeDetails.idDrink || recipeDetails.idMeal || '',
+      type: recipeType2 || '',
+      nationality: recipeDetails.strArea || '',
+      category: recipeDetails.strCategory || '',
+      alcoholicOrNot: recipeDetails.strAlcoholic || '',
+      name: recipeDetails.strDrink || recipeDetails.strMeal || '',
+      image: recipeDetails.strMealThumb || recipeDetails.strDrinkThumb || '' };
+
+    if (!isItFavorite) {
+      localStorage
+        .setItem('favoriteRecipes', JSON.stringify([...prevFavRecipes, newFavRecipes]));
+      setIsFavorited(true);
+    } else {
+      const filteredFavRecipes = prevFavRecipes.filter((e) => +(e.id) !== +(id));
+      setIsFavorited(false);
+      localStorage
+        .setItem('favoriteRecipes', JSON.stringify(filteredFavRecipes));
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -114,7 +161,6 @@ function RecipeDetails() {
                 src={ e.strDrinkThumb }
                 name={ e.strDrink }
                 imagIndex={ imagIndex }
-                // isVisible={ isVisible } // variavel que vai definir visibilidade
               />
             ))
           : mealsRecomendations
@@ -126,7 +172,6 @@ function RecipeDetails() {
                 src={ e.strMealThumb }
                 name={ e.strMeal }
                 imagIndex={ imagIndex }
-                // isVisible={ isVisible } // variavel que vai definir visibilidade
               />
             ))}
         <button
@@ -149,30 +194,50 @@ function RecipeDetails() {
           type="button"
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
+          onClick={ () => history.push(`/${recipeType}/${id}/in-progress`) }
           style={ { position: 'fixed',
             zIndex: 2,
             bottom: 0 } }
-          onClick={ () => history.push(`/${recipeType}/${id}/in-progress`) }
           // onClick={ () => setIsInProgress((prev) => !prev) }
         >
           {/* {isInProgress ? 'Continue Recipe' : 'Start Recipe'} */}
           Start Recipe
         </button>
-        {/* <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ () => copy(`http://localhost:3000/${recipeType}/${id}`) }
+        <div
+          style={ { position: 'fixed',
+            zIndex: 2,
+            bottom: 0,
+            marginLeft: '300px' } }
         >
-          Share
-
-        </button>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          Favorite
-
-        </button> */}
+          <button
+            type="button"
+            data-testid="share-btn"
+            src={ shareIcon }
+            onClick={ handleShareButton }
+          >
+            <img src={ shareIcon } alt="search-button" />
+          </button>
+          { isCopied && <span>Link copied!</span>}
+          { isFavorited ? (
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              src={ blackHeartIcon }
+              onClick={ handleFavoriteButton }
+            >
+              <img src={ blackHeartIcon } alt="search-button" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              src={ whiteHeartIcon }
+              onClick={ handleFavoriteButton }
+            >
+              <img src={ whiteHeartIcon } alt="search-button" />
+            </button>
+          ) }
+        </div>
       </div>
     </div>
   );
