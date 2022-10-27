@@ -1,11 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function RecomendationCard({ index, src, name }) {
+function RecomendationCard({ index, src, name, imagIndex }) {
   return (
-    <div className="my-slides-fade" data-testid={ `${index}-recommendation-card` }>
-      <img src={ src } alt={ name } />
-      <h4 data-testid={ `${index}-recommendation-title` }>{ name }</h4>
+    <div>
+      {imagIndex === index ? (
+        <div
+          className="mySlides"
+          data-testid={ `${index}-recommendation-card` }
+          style={ { display: 'block' } }
+        >
+          <img src={ src } alt={ name } />
+          <h4 data-testid={ `${index}-recommendation-title` }>{ name }</h4>
+        </div>
+      ) : (
+        <div
+          className="mySlides"
+          data-testid={ `${index}-recommendation-card` }
+          style={ { display: 'none' } }
+        >
+          <img src={ src } alt={ name } />
+          <h4 data-testid={ `${index}-recommendation-title` }>{ name }</h4>
+        </div>
+      )}
     </div>
   );
 }

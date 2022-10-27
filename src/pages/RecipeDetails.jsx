@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+
 import Header from '../components/Header';
 import InstructionCard from '../components/InstructionCard';
 import RecomendationCard from '../components/RecomendationCard';
 import AppContext from '../context/AppContext';
+import '../components/recomendationCard.css';
 
 function RecipeDetails() {
   const [recipeDetails, setRecipeDetails] = useState([]);
@@ -11,12 +13,17 @@ function RecipeDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [arrayOfIngredients, setArrayOfIngredients] = useState([]);
   const [arrayOfMeasures, setArrayOfMeasures] = useState([]);
+  const [imagIndex, setImgIndex] = useState(0);
+
   const { id } = useParams();
+
   const { pathname } = useLocation();
+
   const { requestRecomendedCocktail,
     requestRecomendedMeal,
     mealsRecomendations,
     drinksRecomendations } = useContext(AppContext);
+
   const six = 6;
   const minusOne = -1;
 
@@ -65,6 +72,17 @@ function RecipeDetails() {
     }
   }, []);
 
+  const plusSlides = (nextMove) => {
+    console.log(imagIndex, 'primeiro');
+    if (imagIndex === six && nextMove === 1) {
+      setImgIndex(0);
+    } else if (imagIndex === 0 && nextMove === minusOne) {
+      setImgIndex(six);
+    } else if (nextMove === minusOne) {
+      setImgIndex((prev) => prev - 1);
+    } else { setImgIndex((prev) => prev + 1); }
+  };
+
   return (
     <div>
 
@@ -92,6 +110,8 @@ function RecipeDetails() {
                 index={ index }
                 src={ e.strDrinkThumb }
                 name={ e.strDrink }
+                imagIndex={ imagIndex }
+                // isVisible={ isVisible } // variavel que vai definir visibilidade
               />
             ))
           : mealsRecomendations
@@ -102,6 +122,8 @@ function RecipeDetails() {
                 index={ index }
                 src={ e.strMealThumb }
                 name={ e.strMeal }
+                imagIndex={ imagIndex }
+                // isVisible={ isVisible } // variavel que vai definir visibilidade
               />
             ))}
         <button
