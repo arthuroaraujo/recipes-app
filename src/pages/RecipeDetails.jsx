@@ -115,13 +115,13 @@ function RecipeDetails() {
     const isItFavorite = prevFavRecipes.find((e) => +(e.id) === +(id));
 
     const newFavRecipes = {
-      id: recipeDetails.idDrink || recipeDetails.idMeal || '',
-      type: recipeType2 || '',
+      id: recipeDetails.idDrink || recipeDetails.idMeal,
+      type: recipeType2,
       nationality: recipeDetails.strArea || '',
-      category: recipeDetails.strCategory || '',
+      category: recipeDetails.strCategory,
       alcoholicOrNot: recipeDetails.strAlcoholic || '',
-      name: recipeDetails.strDrink || recipeDetails.strMeal || '',
-      image: recipeDetails.strMealThumb || recipeDetails.strDrinkThumb || '' };
+      name: recipeDetails.strDrink || recipeDetails.strMeal,
+      image: recipeDetails.strMealThumb || recipeDetails.strDrinkThumb };
 
     if (!isItFavorite) {
       localStorage
