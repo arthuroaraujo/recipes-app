@@ -12,8 +12,26 @@ function InProgressCard({
   ingredientsArray,
   measuresArray,
   unchangedArray }) {
-  const [isDone, setIsDone] = useState('');
+  const [isDone, setIsDone] = useState(false);
+  // const [checkboxIngredients, setCheckboxIngredients] = useState([]);
   const decoration = 'line-through solid rgb(0, 0, 0)';
+
+  // const handleCheckbox = (id, ingredient) => {
+  //   const prevCheckbox = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  //   console.log(prevCheckbox);
+  //   if (recipeType === 'meals') {
+  //     const mealsCheckbox = {
+  //     ...prevCheckbox,
+  //     prevCheckbox[meals] }
+  //   } else {
+  //     const drinksCheckbox = {
+  //     ...prevCheckbox,
+  //     prevCheckbox[drinks] }
+  //   }
+  // };
+  // localStorage
+  //   .setItem('inProgressRecipes', JSON.stringify([]));
+
   return (
     <div>
       <img data-testid="recipe-photo" src={ imgSrc } alt={ name } />
@@ -24,18 +42,17 @@ function InProgressCard({
         .filter((e) => e !== '')
         .map((e, index) => (
           <label
-            htmlFor="ingredients-checkbox"
+            htmlFor={ `${index}-ingredients-checkbox` }
             key={ index }
             data-testid={ `${index}-ingredient-step` }
+            style={ { textDecoration: isDone ? decoration : 'none',
+            } }
           >
             <input
-              name="ingredients-checkbox"
+              name={ `${index}-ingredients-checkbox` }
               type="checkbox"
               data-testid={ `${index}-ingredient-name-and-measure` }
-              style={ isDone ? { textDecoration: decoration,
-              } : { textDecoration: 'none' } }
               onChange={ () => setIsDone((prev) => !prev) }
-
             />
             { `${unchangedArray[e]} - ` }
             { unchangedArray[measuresArray[index]] }
