@@ -6,7 +6,10 @@ import Footer from '../components/Footer';
 import Recipes from '../components/Recipes';
 
 function Drinks() {
-  const { cocktailIngredients, error, searchInput } = useContext(AppContext);
+  const { cocktailIngredients,
+    error,
+    mealsRecomendations,
+    searchInput } = useContext(AppContext);
   const twelve = 12;
 
   const alertWarning = () => {
@@ -17,6 +20,7 @@ function Drinks() {
 
   return (
     <div className="content-container">
+      { console.log(mealsRecomendations)}
       <Header />
       {searchInput && cocktailIngredients.length !== 0 ? null : <Recipes />}
       {error && alertWarning()}

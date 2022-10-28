@@ -1,12 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-// import Meals from '../pages/Meals';
 import App from '../App';
+import renderWithRouter from './helpers/renderWith';
 
 describe('Testando o Header', () => {
   test('Testando o Header', () => {
-    render(<App />);
+    renderWithRouter(<App />);
 
     const emailElement = screen.getByTestId('email-input');
     const passwordElement = screen.getByTestId('password-input');

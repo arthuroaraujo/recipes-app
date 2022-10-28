@@ -6,7 +6,9 @@ import Footer from '../components/Footer';
 import Recipes from '../components/Recipes';
 
 function Meals() {
-  const { mealIngredients, error, searchInput } = useContext(AppContext);
+  const { mealIngredients,
+    error,
+    searchInput } = useContext(AppContext);
   const twelve = 12;
 
   const alertWarning = () => {
