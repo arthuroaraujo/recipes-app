@@ -126,6 +126,7 @@ function InProgress() {
 
       <Header />
       { isLoading ? <p>Loading...</p> : <InProgressCard
+        id={ id }
         unchangedArray={ recipeDetails }
         imgSrc={ recipeDetails.strMealThumb || recipeDetails.strDrinkThumb || [] }
         name={ recipeDetails.strDrink || recipeDetails.strMeal || [] }
