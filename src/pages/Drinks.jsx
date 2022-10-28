@@ -3,11 +3,13 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 import AppContext from '../context/AppContext';
 import Footer from '../components/Footer';
+import Recipes from '../components/Recipes';
 
 function Drinks() {
   const { cocktailIngredients,
     error,
-    mealsRecomendations } = useContext(AppContext);
+    mealsRecomendations,
+    searchInput } = useContext(AppContext);
   const twelve = 12;
 
   const alertWarning = () => {
@@ -20,6 +22,7 @@ function Drinks() {
     <div className="content-container">
       { console.log(mealsRecomendations)}
       <Header />
+      {searchInput && cocktailIngredients.length !== 0 ? null : <Recipes />}
       {error && alertWarning()}
       {cocktailIngredients ? cocktailIngredients
         .slice(0, twelve)

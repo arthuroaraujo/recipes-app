@@ -13,6 +13,8 @@ function AppProvider({ children }) {
   const [mealIngredients, setMealIngredients] = useState([]);
   const [cocktailIngredients, setCocktailIngredients] = useState([]);
   const [error, setError] = useState(false);
+  const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [drinksRecomendations, setDrinksRecomendations] = useState([]);
   const [mealsRecomendations, setMealsRecomendations] = useState([]);
 
@@ -28,7 +30,7 @@ function AppProvider({ children }) {
     }
   };
 
-  const requestMealName = async (name) => {
+  const requestMealName = async (name = '') => {
     const endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
     const response = await fetch(endPoint);
     const { meals } = await response.json();
@@ -104,8 +106,6 @@ function AppProvider({ children }) {
 
   const getTitle = useCallback((id) => {
     const { pathname } = location;
-    // const pathnameList = pathname.split('/');
-    // const id = pathnameList[pathnameList.length - 1];
     switch (pathname) {
     case '/meals':
       return 'Meals';
@@ -144,31 +144,38 @@ function AppProvider({ children }) {
       value={ useMemo(
         () => ({
           products,
-          setProducts,
           email,
-          setEmail,
           password,
-          setPassword,
           isDisabledButton,
+          searchInput,
+          mealIngredients,
+          recipes,
+          cocktailIngredients,
+          error,
+          categories,
+          setCocktailIngredients,
+          setProducts,
+          setEmail,
+          setPassword,
           setIsDisabledButton,
           getTitle,
-          searchInput,
           setSearchInput,
-          mealIngredients,
+          setRecipes,
+          setMealIngredients,
           requestMealIngredients,
           requestMealName,
           requestMealFirstLetter,
-          cocktailIngredients,
           requestCocktailIngredients,
           requestCocktailName,
           requestCocktailFirstLetter,
-          error,
+          setCategories,
           mealsRecomendations,
           requestRecomendedMeal,
           drinksRecomendations,
           requestRecomendedCocktail,
         }),
-        [products,
+        [
+          products,
           email,
           password,
           isDisabledButton,
@@ -176,6 +183,8 @@ function AppProvider({ children }) {
           searchInput,
           mealIngredients,
           cocktailIngredients,
+          recipes,
+          categories,
           error,
           mealsRecomendations,
           drinksRecomendations],

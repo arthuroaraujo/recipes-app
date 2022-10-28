@@ -18,7 +18,7 @@ function Header() {
   };
 
   return (
-    <div>
+    <header>
       <h1
         data-testid="page-title"
       >
@@ -48,7 +48,7 @@ function Header() {
         </button>
       )}
       {searchInput && <SearchBar />}
-    </div>
+    </header>
   );
 }
 
