@@ -27,6 +27,7 @@ function Recipes() {
       <Categories />
       {recipes.map((recipe, i) => (
         <Card
+          link={ `/${recipeUrl}/${recipe.idMeal || recipe.idDrink}` }
           key={ recipeUrl === 'meals' ? recipe.idMeal : recipe.idDrink }
           index={ i }
           src={ recipeUrl === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb }
