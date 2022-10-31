@@ -8,7 +8,7 @@ import Header from '../components/Header';
 import InstructionCard from '../components/InstructionCard';
 import RecomendationCard from '../components/RecomendationCard';
 import AppContext from '../context/AppContext';
-import '../components/recomendationCard.css';
+import '../styles/RecipeDetails.css';
 
 function RecipeDetails() {
   const [recipeDetails, setRecipeDetails] = useState([]);

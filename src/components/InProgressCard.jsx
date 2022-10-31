@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/InProgress.css';
 
 function InProgressCard({
   imgSrc,
@@ -12,10 +13,7 @@ function InProgressCard({
   ingredientsArray,
   measuresArray,
   unchangedArray, id }) {
-  const [isDone, setIsDone] = useState(false);
-  const [recipeHistory, setRecipeHistory] = useState({ drinks: {}, meals: {} });
-  // const [checkboxIngredients, setCheckboxIngredients] = useState([]);
-  const decoration = 'line-through solid rgb(0, 0, 0)';
+  const [recipeHistory, setRecipeHistory] = useState({});
 
   useEffect(() => {
     const progressData = JSON
@@ -23,33 +21,34 @@ function InProgressCard({
     setRecipeHistory(progressData);
   }, []);
 
-  // adicionado objeto atualizado
-  // falta não adicionar ingredientes duplicado
-  // falta verificar o checkbox com os dados já existentes
   const handleCheckbox = (ingredient) => {
     let newOjectIngredientes = { ...recipeHistory };
 
-    if (recipeType === 'meals') {
+    if (!newOjectIngredientes[recipeType][id]) {
       newOjectIngredientes = {
         ...recipeHistory,
-        meals: {
-          ...recipeHistory.meals,
-          [id]: [...recipeHistory.meals[id] || [], ingredient],
+        [recipeType]: {
+          ...recipeHistory[recipeType],
+          [id]: [...recipeHistory[recipeType][id] || [], ingredient],
         },
       };
+    } else {
+      const isItDone = newOjectIngredientes[recipeType][id]
+        .find((e) => e === ingredient);
+      if (isItDone === undefined) {
+        newOjectIngredientes = {
+          ...recipeHistory,
+          [recipeType]: {
+            ...recipeHistory[recipeType],
+            [id]: [...recipeHistory[recipeType][id] || [], ingredient],
+          },
+        };
+      } else {
+        const indexOfIngredients = newOjectIngredientes[recipeType][id]
+          .indexOf(ingredient);
+        newOjectIngredientes[recipeType][id].splice(indexOfIngredients, 1);
+      }
     }
-
-    if (recipeType === 'drinks') {
-      newOjectIngredientes = {
-        ...recipeHistory,
-        drinks: {
-          ...recipeHistory.drinks,
-          [id]: [...recipeHistory.drinks[id] || [], ingredient],
-        },
-      };
-    }
-
-    // console.log(newOjectIngredientes);
     setRecipeHistory(newOjectIngredientes);
     localStorage.setItem('inProgressRecipes', JSON.stringify(newOjectIngredientes));
   };
@@ -64,19 +63,21 @@ function InProgressCard({
         .filter((e) => e !== '')
         .map((e, index) => (
           <label
+            className="label-checkbox"
             htmlFor={ `${index}-ingredients-checkbox` }
             key={ index }
             data-testid={ `${index}-ingredient-step` }
-            style={ { textDecoration: isDone ? decoration : 'none',
-            } }
           >
             <input
               name={ `${index}-ingredients-checkbox` }
               type="checkbox"
               data-testid={ `${index}-ingredient-name-and-measure` }
-              onClick={ () => handleCheckbox(
+              onChange={ () => handleCheckbox(
                 `${unchangedArray[e]} - ${unchangedArray[measuresArray[index]]}`,
               ) }
+              checked={ recipeHistory[recipeType][id]
+                ?.find((el) => el
+                === `${unchangedArray[e]} - ${unchangedArray[measuresArray[index]]}`) }
             />
             { `${unchangedArray[e]} - ` }
             { unchangedArray[measuresArray[index]] }

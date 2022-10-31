@@ -4,7 +4,7 @@ import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import InProgressCard from '../components/InProgressCard';
 import AppContext from '../context/AppContext';
-import '../components/recomendationCard.css';
+import '../styles/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
