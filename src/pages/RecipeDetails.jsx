@@ -20,19 +20,15 @@ function RecipeDetails() {
   const [imagIndex, setImgIndex] = useState(0);
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
-  // const [isInProgress, setIsInProgress] = useState(false);
-  // console.log(setIsInProgress);
+  const [isInProgress, setIsInProgress] = useState(false);
 
   const { id } = useParams();
-
   const { pathname } = useLocation();
   const history = useHistory();
-
   const { requestRecomendedCocktail,
     requestRecomendedMeal,
     mealsRecomendations,
     drinksRecomendations } = useContext(AppContext);
-
   const five = 5;
   const six = 6;
   const minusOne = -1;
@@ -51,31 +47,39 @@ function RecipeDetails() {
       const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
       const { meals } = await response.json();
-      setRecipeDetails(meals[0]);
-      ingredientsToArray(meals[0]);
-      setRecipeType('meals');
-      setRecipeType2('meal');
+      if (meals) {
+        setRecipeDetails(meals[0]);
+        ingredientsToArray(meals[0]);
+        setRecipeType('meals');
+        setRecipeType2('meal');
+      }
     } else {
       const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
       const { drinks } = await response.json();
-      // console.log(drinks);
-      setRecipeDetails(drinks[0]);
-      ingredientsToArray(drinks[0]);
-      setRecipeType('drinks');
-      setRecipeType2('drink');
+      if (drinks) {
+        setRecipeDetails(drinks[0]);
+        ingredientsToArray(drinks[0]);
+        setRecipeType('drinks');
+        setRecipeType2('drink');
+      }
     }
   };
-
   useEffect(() => {
     if (recipeDetails.length === 0) {
       requestByID();
       setIsLoading(true);
     }
-    // console.log('alo');
     setIsLoading(false);
   }, [recipeDetails, isLoading, arrayOfIngredients, arrayOfMeasures]);
 
+  const verifyRecipeProgress = () => {
+    const inProgStr = JSON
+      .parse(localStorage.getItem('inProgressRecipes'));
+    const keyType = pathname.split('/')[1];
+    const recipeIsStarted = Object.keys(inProgStr[keyType]).includes(id);
+    setIsInProgress(recipeIsStarted);
+  };
   useEffect(() => {
     if (pathname.includes('meals')) {
       requestRecomendedCocktail();
@@ -83,7 +87,9 @@ function RecipeDetails() {
       requestRecomendedMeal();
     }
   }, []);
-
+  useEffect(() => {
+    verifyRecipeProgress();
+  }, []);
   const plusSlides = (nextMove) => {
     if (imagIndex === five && nextMove === 1) {
       setImgIndex(0);
@@ -140,13 +146,13 @@ function RecipeDetails() {
       <Header />
       { isLoading ? <p>Loading...</p> : <InstructionCard
         unchangedArray={ recipeDetails }
-        imgSrc={ recipeDetails.strMealThumb || recipeDetails.strDrinkThumb || [] }
-        name={ recipeDetails.strDrink || recipeDetails.strMeal || [] }
-        mealCategory={ recipeDetails.strCategory || [] }
-        drinkCategory={ recipeDetails.strAlcoholic || [] }
-        instruction={ recipeDetails.strInstructions || [] }
+        imgSrc={ recipeDetails?.strMealThumb || recipeDetails?.strDrinkThumb || [] }
+        name={ recipeDetails?.strDrink || recipeDetails?.strMeal || [] }
+        mealCategory={ recipeDetails?.strCategory || [] }
+        drinkCategory={ recipeDetails?.strAlcoholic || [] }
+        instruction={ recipeDetails?.strInstructions || [] }
         recipeType={ recipeType }
-        videoSrc={ recipeDetails.strSource || [] }
+        videoSrc={ recipeDetails?.strSource || [] }
         ingredientsArray={ arrayOfIngredients }
         measuresArray={ arrayOfMeasures }
       /> }
@@ -198,10 +204,8 @@ function RecipeDetails() {
           style={ { position: 'fixed',
             zIndex: 2,
             bottom: 0 } }
-          // onClick={ () => setIsInProgress((prev) => !prev) }
         >
-          {/* {isInProgress ? 'Continue Recipe' : 'Start Recipe'} */}
-          Start Recipe
+          {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
         </button>
         <div
           style={ { position: 'fixed',

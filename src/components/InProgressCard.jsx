@@ -12,7 +12,8 @@ function InProgressCard({
   videoSrc,
   ingredientsArray,
   measuresArray,
-  unchangedArray, id }) {
+  unchangedArray,
+  id }) {
   const [recipeHistory, setRecipeHistory] = useState({});
 
   useEffect(() => {
@@ -52,7 +53,7 @@ function InProgressCard({
     setRecipeHistory(newOjectIngredientes);
     localStorage.setItem('inProgressRecipes', JSON.stringify(newOjectIngredientes));
   };
-
+  // if (!isLoading) return <p>alo</p>;
   return (
     <div>
       <img data-testid="recipe-photo" src={ imgSrc } alt={ name } />
@@ -63,10 +64,13 @@ function InProgressCard({
         .filter((e) => e !== '')
         .map((e, index) => (
           <label
-            className="label-checkbox"
             htmlFor={ `${index}-ingredients-checkbox` }
             key={ index }
             data-testid={ `${index}-ingredient-step` }
+            className={ recipeHistory[recipeType][id]
+              ?.find((el) => el
+              === `${unchangedArray[e]} - ${unchangedArray[measuresArray[index]]}`)
+              ? 'label-checkbox' : 'label-checkbox-2' }
           >
             <input
               name={ `${index}-ingredients-checkbox` }

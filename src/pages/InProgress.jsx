@@ -28,38 +28,46 @@ function InProgress() {
   } = useContext(AppContext);
 
   const ingredientsToArray = (ingredients) => {
-    const newList = Object.keys(ingredients)
-      .filter((e) => e.includes('strIngredient'));
-    const ingredientList = [];
-    newList.forEach((e) => {
-      if (ingredients[e] !== null && ingredients[e] !== '') {
-        return ingredientList.push(e);
-      }
-    });
-    setArrayOfIngredients([...ingredientList]);
-    const ingredientMeasure = Object.keys(ingredients)
-      .filter((e) => e.includes('strMeasure'));
-    setArrayOfMeasures([...ingredientMeasure]);
+    if (ingredients) {
+      const newList = Object.keys(ingredients)
+        .filter((e) => e.includes('strIngredient'));
+      const ingredientList = [];
+      newList.forEach((e) => {
+        if (ingredients[e] !== null && ingredients[e] !== '') {
+          return ingredientList.push(e);
+        }
+      });
+      setArrayOfIngredients([...ingredientList]);
+      const ingredientMeasure = Object.keys(ingredients)
+        .filter((e) => e.includes('strMeasure'));
+      setArrayOfMeasures([...ingredientMeasure]);
+    }
   };
 
   const requestByID = async () => {
     if (pathname.includes('meals')) {
+      console.log('estou em comidas');
       const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
       const { meals } = await response.json();
-      setRecipeDetails(meals[0]);
-      ingredientsToArray(meals[0]);
-      setRecipeType('meals');
-      setRecipeType2('meal');
+      if (meals) {
+        setRecipeDetails(meals[0]);
+        ingredientsToArray(meals[0]);
+        setRecipeType('meals');
+        setRecipeType2('meal');
+      }
     } else {
+      console.log('estou em bebidas');
       const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
       const { drinks } = await response.json();
       // console.log(drinks);
-      setRecipeDetails(drinks[0]);
-      ingredientsToArray(drinks[0]);
-      setRecipeType('drinks');
-      setRecipeType2('drink');
+      if (drinks) {
+        setRecipeDetails(drinks[0]);
+        ingredientsToArray(drinks[0]);
+        setRecipeType('drinks');
+        setRecipeType2('drink');
+      }
     }
   };
 
@@ -88,7 +96,7 @@ function InProgress() {
   useEffect(() => {
     const prevFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
-    const isItFavorite = prevFavRecipes.find((e) => +(e.id) === +(id));
+    const isItFavorite = prevFavRecipes.find((e) => Number(e?.id) === Number(id));
 
     if (isItFavorite) {
       setIsFavorited(true);
@@ -98,29 +106,31 @@ function InProgress() {
   const handleFavoriteButton = () => {
     const prevFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
-    const isItFavorite = prevFavRecipes.find((e) => +(e.id) === +(id));
+    const isItFavorite = prevFavRecipes.find((e) => Number(e?.id) === Number(id));
+    if (recipeDetails) {
+      const newFavRecipes = {
+        id: recipeDetails?.idDrink || recipeDetails?.idMeal,
+        type: recipeType2,
+        nationality: recipeDetails?.strArea || '',
+        category: recipeDetails?.strCategory,
+        alcoholicOrNot: recipeDetails?.strAlcoholic || '',
+        name: recipeDetails?.strDrink || recipeDetails?.strMeal,
+        image: recipeDetails?.strMealThumb || recipeDetails?.strDrinkThumb };
 
-    const newFavRecipes = {
-      id: recipeDetails.idDrink || recipeDetails.idMeal,
-      type: recipeType2,
-      nationality: recipeDetails.strArea || '',
-      category: recipeDetails.strCategory,
-      alcoholicOrNot: recipeDetails.strAlcoholic || '',
-      name: recipeDetails.strDrink || recipeDetails.strMeal,
-      image: recipeDetails.strMealThumb || recipeDetails.strDrinkThumb };
-
-    if (!isItFavorite) {
-      localStorage
-        .setItem('favoriteRecipes', JSON.stringify([...prevFavRecipes, newFavRecipes]));
-      setIsFavorited(true);
-    } else {
-      const filteredFavRecipes = prevFavRecipes.filter((e) => +(e.id) !== +(id));
-      setIsFavorited(false);
-      localStorage
-        .setItem('favoriteRecipes', JSON.stringify(filteredFavRecipes));
+      if (!isItFavorite) {
+        localStorage
+          .setItem('favoriteRecipes', JSON.stringify([...prevFavRecipes, newFavRecipes]));
+        setIsFavorited(true);
+      } else {
+        const filteredFavRecipes = prevFavRecipes
+          .filter((e) => Number(e?.id) !== Number(id));
+        setIsFavorited(false);
+        localStorage
+          .setItem('favoriteRecipes', JSON.stringify(filteredFavRecipes));
+      }
     }
   };
-
+  // if (!isFavorited) return <p>alo</p>;
   return (
     <div>
 
@@ -128,15 +138,16 @@ function InProgress() {
       { isLoading ? <p>Loading...</p> : <InProgressCard
         id={ id }
         unchangedArray={ recipeDetails }
-        imgSrc={ recipeDetails.strMealThumb || recipeDetails.strDrinkThumb || [] }
-        name={ recipeDetails.strDrink || recipeDetails.strMeal || [] }
-        mealCategory={ recipeDetails.strCategory || [] }
-        drinkCategory={ recipeDetails.strAlcoholic || [] }
-        instruction={ recipeDetails.strInstructions || [] }
+        imgSrc={ recipeDetails?.strMealThumb || recipeDetails?.strDrinkThumb || [] }
+        name={ recipeDetails?.strDrink || recipeDetails?.strMeal || [] }
+        mealCategory={ recipeDetails?.strCategory || [] }
+        drinkCategory={ recipeDetails?.strAlcoholic || [] }
+        instruction={ recipeDetails?.strInstructions || [] }
         recipeType={ recipeType }
-        videoSrc={ recipeDetails.strSource || [] }
+        videoSrc={ recipeDetails?.strSource || [] }
         ingredientsArray={ arrayOfIngredients }
         measuresArray={ arrayOfMeasures }
+        isLoading={ isLoading }
       /> }
       <div
         style={ { position: 'fixed',
