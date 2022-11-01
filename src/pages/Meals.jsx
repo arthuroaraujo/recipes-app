@@ -24,6 +24,7 @@ function Meals() {
         .slice(0, twelve)
         .map((meal, index) => (
           <Card
+            link={ `/meals/${meal.idMeal}` }
             key={ meal.idMeal }
             name={ meal.strMeal }
             src={ meal.strMealThumb }

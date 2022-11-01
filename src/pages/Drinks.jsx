@@ -8,7 +8,6 @@ import Recipes from '../components/Recipes';
 function Drinks() {
   const { cocktailIngredients,
     error,
-    mealsRecomendations,
     searchInput } = useContext(AppContext);
   const twelve = 12;
 
@@ -20,7 +19,6 @@ function Drinks() {
 
   return (
     <div className="content-container">
-      { console.log(mealsRecomendations)}
       <Header />
       {searchInput && cocktailIngredients.length !== 0 ? null : <Recipes />}
       {error && alertWarning()}
@@ -28,6 +26,7 @@ function Drinks() {
         .slice(0, twelve)
         .map((drink, index) => (
           <Card
+            link={ `/drinks/${drink.isDrink}` }
             key={ drink.idDrink }
             name={ drink.strDrink }
             src={ drink.strDrinkThumb }
