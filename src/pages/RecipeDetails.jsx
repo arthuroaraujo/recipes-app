@@ -41,7 +41,6 @@ function RecipeDetails() {
       .filter((e) => e.includes('strMeasure'));
     setArrayOfMeasures([...ingredientMeasure]);
   };
-
   const requestByID = async () => {
     if (pathname.includes('meals')) {
       const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -72,13 +71,14 @@ function RecipeDetails() {
     }
     setIsLoading(false);
   }, [recipeDetails, isLoading, arrayOfIngredients, arrayOfMeasures]);
-
   const verifyRecipeProgress = () => {
     const inProgStr = JSON
       .parse(localStorage.getItem('inProgressRecipes'));
-    const keyType = pathname.split('/')[1];
-    const recipeIsStarted = Object.keys(inProgStr[keyType]).includes(id);
-    setIsInProgress(recipeIsStarted);
+    if (inProgStr) {
+      const keyType = pathname.split('/')[1];
+      const recipeIsStarted = Object.keys(inProgStr[keyType]).includes(id);
+      setIsInProgress(recipeIsStarted);
+    }
   };
   useEffect(() => {
     if (pathname.includes('meals')) {
