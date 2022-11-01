@@ -13,7 +13,9 @@ function InProgressCard({
   ingredientsArray,
   measuresArray,
   unchangedArray,
-  id }) {
+  id,
+  setIngredQnt,
+  setIngredDoneQnt }) {
   const [recipeHistory, setRecipeHistory] = useState({});
 
   useEffect(() => {
@@ -21,6 +23,15 @@ function InProgressCard({
       .parse(localStorage.getItem('inProgressRecipes')) || { drinks: {}, meals: {} };
     setRecipeHistory(progressData);
   }, []);
+
+  useEffect(() => {
+    if (recipeHistory[recipeType]) {
+      // console.log(ingredientsArray.length);
+      // console.log(recipeHistory[recipeType][id].length);
+      setIngredQnt(ingredientsArray?.length);
+      setIngredDoneQnt(recipeHistory[recipeType][id]?.length);
+    }
+  }, [recipeType]);
 
   const handleCheckbox = (ingredient) => {
     let newOjectIngredientes = { ...recipeHistory };
@@ -52,8 +63,10 @@ function InProgressCard({
     }
     setRecipeHistory(newOjectIngredientes);
     localStorage.setItem('inProgressRecipes', JSON.stringify(newOjectIngredientes));
+    setIngredDoneQnt(newOjectIngredientes[recipeType][id]?.length);
+    // console.log(newOjectIngredientes[recipeType][id].length);
   };
-  // if (!isLoading) return <p>alo</p>;
+
   return (
     <div>
       <img data-testid="recipe-photo" src={ imgSrc } alt={ name } />

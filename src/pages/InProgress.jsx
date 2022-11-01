@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import InProgressCard from '../components/InProgressCard';
@@ -18,7 +18,9 @@ function InProgress() {
   const [arrayOfMeasures, setArrayOfMeasures] = useState([]);
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
-
+  const [ingredQnt, setIngredQnt] = useState(0);
+  const [ingredDoneQnt, setIngredDoneQnt] = useState(0);
+  const history = useHistory();
   const { id } = useParams();
 
   const { pathname } = useLocation();
@@ -46,7 +48,6 @@ function InProgress() {
 
   const requestByID = async () => {
     if (pathname.includes('meals')) {
-      console.log('estou em comidas');
       const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
       const { meals } = await response.json();
@@ -61,7 +62,6 @@ function InProgress() {
       const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
       const { drinks } = await response.json();
-      // console.log(drinks);
       if (drinks) {
         setRecipeDetails(drinks[0]);
         ingredientsToArray(drinks[0]);
@@ -76,7 +76,6 @@ function InProgress() {
       requestByID();
       setIsLoading(true);
     }
-    // console.log('alo');
     setIsLoading(false);
   }, [recipeDetails, isLoading, arrayOfIngredients, arrayOfMeasures]);
 
@@ -130,12 +129,14 @@ function InProgress() {
       }
     }
   };
-  // if (!isFavorited) return <p>alo</p>;
+
+  const handleFinish = () => { history.push('/done-recipes'); };
+  // pegar modelo favs, adicionar data e tags
   return (
     <div>
 
       <Header />
-      { isLoading ? <p>Loading...</p> : <InProgressCard
+      { isLoading && !arrayOfIngredients ? <p>Loading...</p> : <InProgressCard
         id={ id }
         unchangedArray={ recipeDetails }
         imgSrc={ recipeDetails?.strMealThumb || recipeDetails?.strDrinkThumb || [] }
@@ -148,6 +149,8 @@ function InProgress() {
         ingredientsArray={ arrayOfIngredients }
         measuresArray={ arrayOfMeasures }
         isLoading={ isLoading }
+        setIngredDoneQnt={ setIngredDoneQnt }
+        setIngredQnt={ setIngredQnt }
       /> }
       <div
         style={ { position: 'fixed',
@@ -186,6 +189,8 @@ function InProgress() {
         <button
           type="button"
           data-testid="finish-recipe-btn"
+          disabled={ ingredQnt > ingredDoneQnt }
+          onClick={ handleFinish }
         >
           Finish Recipe
         </button>
