@@ -79,14 +79,16 @@ function AppProvider({ children }) {
   };
 
   const requestCocktailFirstLetter = async (firstLetter) => {
-    const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
-    const response = await fetch(endPoint);
-    const { drinks } = await response.json();
-    if (drinks === null) {
-      setError(true);
-    } else {
-      setError(false);
-      setCocktailIngredients(drinks);
+    if (firstLetter) {
+      const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+      const response = await fetch(endPoint);
+      const { drinks } = await response.json();
+      if (drinks === null) {
+        setError(true);
+      } else {
+        setError(false);
+        setCocktailIngredients(drinks);
+      }
     }
   };
 

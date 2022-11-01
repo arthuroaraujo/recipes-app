@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import AppContext from '../context/AppContext';
 import Card from './Card';
-import Categories from './Categories';
 
 function Recipes() {
-  const [recipes, setRecipes] = useState([]);
+  const [recipesGeneral, setRecipesGeneral] = useState([]);
+  const { recipes } = useContext(AppContext);
 
   const { location: { pathname } } = useHistory();
   let url;
@@ -19,13 +20,12 @@ function Recipes() {
 
   useEffect(() => {
     fetch(url).then((response) => response.json())
-      .then((data) => setRecipes(data[recipeUrl].splice(0, twelve)));
+      .then((data) => setRecipesGeneral(data[recipeUrl].splice(0, twelve)));
   }, []);
 
   return (
-    <>
-      <Categories />
-      {recipes.map((recipe, i) => (
+    <div>
+      {recipes.length > 0 ? recipes.map((recipe, i) => (
         <Card
           link={ `/${recipeUrl}/${recipe.idMeal || recipe.idDrink}` }
           key={ recipeUrl === 'meals' ? recipe.idMeal : recipe.idDrink }
@@ -33,8 +33,16 @@ function Recipes() {
           src={ recipeUrl === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb }
           name={ recipeUrl === 'meals' ? recipe.strMeal : recipe.strDrink }
         />
+      )) : recipesGeneral.map((recipe2, i) => (
+        <Card
+          link={ `/${recipeUrl}/${recipe2.idMeal || recipe2.idDrink}` }
+          key={ recipeUrl === 'meals' ? recipe2.idMeal : recipe2.idDrink }
+          index={ i }
+          src={ recipeUrl === 'meals' ? recipe2.strMealThumb : recipe2.strDrinkThumb }
+          name={ recipeUrl === 'meals' ? recipe2.strMeal : recipe2.strDrink }
+        />
       ))}
-    </>
+    </div>
   );
 }
 

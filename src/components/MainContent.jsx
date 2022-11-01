@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { useHistory } from 'react-router-dom';
 import { BsBookmarkHeart } from 'react-icons/bs';
@@ -6,6 +6,7 @@ import { FiLogOut } from 'react-icons/fi';
 
 function MainContent() {
   const history = useHistory();
+  const [profile, setProfile] = useState(null);
 
   function redirect({ target }) {
     const { dataset: { url } } = target;
@@ -17,11 +18,16 @@ function MainContent() {
     history.push('/');
   }
 
-  const mail = JSON.parse(localStorage.getItem('user'));
-  console.log(mail);
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setProfile(user.email);
+    }
+  }, [profile]);
+
   return (
     <main className="main-content">
-      <h2 data-testid="profile-email">{ mail.email }</h2>
+      <h2 data-testid="profile-email">{ profile }</h2>
       <button
         type="button"
         data-testid="profile-done-btn"

@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import AppContext from '../context/AppContext';
 import Footer from '../components/Footer';
 import Recipes from '../components/Recipes';
+import Categories from '../components/Categories';
 
 function Meals() {
   const { mealIngredients,
@@ -18,6 +19,7 @@ function Meals() {
   return (
     <div className="content-container">
       <Header />
+      <Categories />
       {searchInput && mealIngredients.length !== 0 ? null : <Recipes />}
       {error && alertWarning()}
       {mealIngredients ? mealIngredients
