@@ -55,12 +55,12 @@ function SearchBar() {
 
   return (
     <div>
-      {mealIngredients?.length === 1 && <Redirect
+      {/* {mealIngredients.length === 1 && <Redirect
         to={ `/meals/${mealIngredients[0].idMeal}` }
       />}
       {cocktailIngredients.length === 1 && <Redirect
         to={ `/drinks/${cocktailIngredients[0].idDrink}` }
-      />}
+      />} */}
       <input
         data-testid="search-input"
         type="text"
