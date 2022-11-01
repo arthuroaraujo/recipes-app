@@ -72,7 +72,6 @@ function Categories() {
 
     if (target.className === 'category') {
       result = await getByCategory(categoryUrl);
-      console.log(result);
       setRecipes(result);
       target.classList.remove('category');
       document.querySelectorAll('[data-category]').forEach((cat) => {
