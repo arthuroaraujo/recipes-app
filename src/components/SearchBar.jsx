@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 function SearchBar() {
@@ -12,9 +11,7 @@ function SearchBar() {
     requestCocktailIngredients,
     requestCocktailName,
     requestCocktailFirstLetter,
-    getTitle,
-    mealIngredients,
-    cocktailIngredients } = useContext(AppContext);
+    getTitle } = useContext(AppContext);
 
   const requestMeal = () => {
     switch (searchRadio) {

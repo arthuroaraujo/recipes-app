@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import AppContext from '../context/AppContext';
 import Card from './Card';
 import Categories from './Categories';
 
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
 
-  //const { recipes, setRecipes } = useContext(AppContext);
   const { location: { pathname } } = useHistory();
   let url;
   const recipeUrl = pathname.substring(1);

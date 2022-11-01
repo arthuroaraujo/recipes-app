@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { useHistory } from 'react-router-dom';
 import { BsBookmarkHeart } from 'react-icons/bs';
 import { FiLogOut } from 'react-icons/fi';
-import AppContext from '../context/AppContext';
 
 function MainContent() {
-  const { email } = useContext(AppContext);
   const history = useHistory();
 
   function redirect({ target }) {
