@@ -81,6 +81,29 @@ describe('Testando a Search Bar para Meals', () => {
     userEvent.click(radioFirstLetterElement);
     userEvent.click(getResultButtonElement);
   });
+  test('Testando a Search Bar e botão First Letter errado', async () => {
+    global.alert = jest.fn();
+    const { history } = renderWithRouter(<App />, { initialEntries: ['/meals'] });
+
+    expect(history.location.pathname).toBe('/meals');
+    expect(await screen.findByTestId(pageTitle)).toBeInTheDocument();
+
+    const searchButtonElement = screen.getByTestId(searchTopBtn);
+    userEvent.click(searchButtonElement);
+
+    const searchBarElement = screen.getByTestId(searchInput);
+
+    const radioFirstLetterElement = screen.getByTestId(firstLetterSearchRadio);
+
+    const getResultButtonElement = screen.getByTestId(execSearchButton);
+
+    userEvent.type(searchBarElement, 'mm');
+    userEvent.click(radioFirstLetterElement);
+    userEvent.click(getResultButtonElement);
+
+    expect(global.alert).toHaveBeenCalled();
+    expect(global.alert).toHaveBeenCalledTimes(1);
+  });
   test('Testando a Search Bar e botão Name', async () => {
     const { history } = renderWithRouter(<App />, { initialEntries: ['/meals'] });
 

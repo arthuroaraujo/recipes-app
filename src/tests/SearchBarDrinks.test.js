@@ -119,4 +119,23 @@ describe('Testando a Search Bar para Drinks', () => {
 
     expect(history.location.pathname).toBe('/drinks/11118');
   }, 10000);
+  // test('Testando o Alert se não achar a receita', async () => {
+  //   const { history } = renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+
+  //   expect(history.location.pathname).toBe('/drinks');
+  //   expect(await screen.findByTestId(pageTitle)).toBeInTheDocument();
+
+  //   const searchButtonElement = screen.getByTestId(searchTopBtn);
+  //   userEvent.click(searchButtonElement);
+
+  //   const searchBarElement = screen.getByTestId(searchInput);
+
+  //   const radioIngredientElement = screen.getByTestId('ingredient-search-radio');
+
+  //   const getResultButtonElement = screen.getByTestId(execSearchButton);
+
+  //   userEvent.type(searchBarElement, 'dúvido essa existir');
+  //   userEvent.click(radioIngredientElement);
+  //   userEvent.click(getResultButtonElement);
+  // });
 });
