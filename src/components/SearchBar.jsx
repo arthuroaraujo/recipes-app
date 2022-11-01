@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 function SearchBar() {
@@ -11,7 +12,9 @@ function SearchBar() {
     requestCocktailIngredients,
     requestCocktailName,
     requestCocktailFirstLetter,
-    getTitle } = useContext(AppContext);
+    getTitle,
+    mealIngredients,
+    cocktailIngredients } = useContext(AppContext);
 
   const requestMeal = () => {
     switch (searchRadio) {
@@ -52,12 +55,12 @@ function SearchBar() {
 
   return (
     <div>
-      {/* {mealIngredients.length === 1 && <Redirect
+      {mealIngredients.length === 1 && <Redirect
         to={ `/meals/${mealIngredients[0].idMeal}` }
       />}
       {cocktailIngredients.length === 1 && <Redirect
         to={ `/drinks/${cocktailIngredients[0].idDrink}` }
-      />} */}
+      />}
       <input
         data-testid="search-input"
         type="text"
