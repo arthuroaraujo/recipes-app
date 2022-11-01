@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from './Card';
-import Categories from './Categories';
 
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -24,7 +23,6 @@ function Recipes() {
 
   return (
     <>
-      <Categories />
       {recipes.map((recipe, i) => (
         <Card
           link={ `/${recipeUrl}/${recipe.idMeal || recipe.idDrink}` }

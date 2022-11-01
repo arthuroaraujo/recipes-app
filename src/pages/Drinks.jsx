@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import AppContext from '../context/AppContext';
 import Footer from '../components/Footer';
 import Recipes from '../components/Recipes';
+import Categories from '../components/Categories';
 
 function Drinks() {
   const { cocktailIngredients,
@@ -20,6 +21,7 @@ function Drinks() {
   return (
     <div className="content-container">
       <Header />
+      <Categories />
       {searchInput && cocktailIngredients.length !== 0 ? null : <Recipes />}
       {error && alertWarning()}
       {cocktailIngredients ? cocktailIngredients
