@@ -22,19 +22,21 @@ function Drinks() {
     <div className="content-container">
       <Header />
       <Categories />
-      {searchInput && cocktailIngredients.length !== 0 ? null : <Recipes />}
-      {error && alertWarning()}
-      {cocktailIngredients ? cocktailIngredients
-        .slice(0, twelve)
-        .map((drink, index) => (
-          <Card
-            link={ `/drinks/${drink.isDrink}` }
-            key={ drink.idDrink }
-            name={ drink.strDrink }
-            src={ drink.strDrinkThumb }
-            index={ index }
-          />
-        )) : null}
+      <main className="main-content">
+        {searchInput && cocktailIngredients.length !== 0 ? null : <Recipes />}
+        {error && alertWarning()}
+        {cocktailIngredients ? cocktailIngredients
+          .slice(0, twelve)
+          .map((drink, index) => (
+            <Card
+              link={ `/drinks/${drink.isDrink}` }
+              key={ drink.idDrink }
+              name={ drink.strDrink }
+              src={ drink.strDrinkThumb }
+              index={ index }
+            />
+          )) : null}
+      </main>
       <Footer />
     </div>
   );

@@ -5,6 +5,7 @@ import AppContext from '../context/AppContext';
 import Footer from '../components/Footer';
 import Recipes from '../components/Recipes';
 import Categories from '../components/Categories';
+import '../styles/Recipes.css';
 
 function Meals() {
   const { mealIngredients,
@@ -20,19 +21,21 @@ function Meals() {
     <div className="content-container">
       <Header />
       <Categories />
-      {searchInput && mealIngredients.length !== 0 ? null : <Recipes />}
-      {error && alertWarning()}
-      {mealIngredients ? mealIngredients
-        .slice(0, twelve)
-        .map((meal, index) => (
-          <Card
-            link={ `/meals/${meal.idMeal}` }
-            key={ meal.idMeal }
-            name={ meal.strMeal }
-            src={ meal.strMealThumb }
-            index={ index }
-          />
-        )) : null}
+      <main className="main-content">
+        {searchInput && mealIngredients.length !== 0 ? null : <Recipes />}
+        {error && alertWarning()}
+        {mealIngredients ? mealIngredients
+          .slice(0, twelve)
+          .map((meal, index) => (
+            <Card
+              link={ `/meals/${meal.idMeal}` }
+              key={ meal.idMeal }
+              name={ meal.strMeal }
+              src={ meal.strMealThumb }
+              index={ index }
+            />
+          )) : null}
+      </main>
       <Footer />
     </div>
   );

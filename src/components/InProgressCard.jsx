@@ -68,38 +68,41 @@ function InProgressCard({
   };
 
   return (
-    <div>
+    <div className="in-proccess-card">
       <img data-testid="recipe-photo" src={ imgSrc } alt={ name } />
       <h2 data-testid="recipe-title">{ name }</h2>
       {recipeType === 'meals' ? <p data-testid="recipe-category">{ mealCategory }</p>
         : <p data-testid="recipe-category">{ drinkCategory }</p>}
-      {ingredientsArray
-        .filter((e) => e !== '')
-        .map((e, index) => (
-          <label
-            htmlFor={ `${index}-ingredients-checkbox` }
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-            className={ recipeHistory[recipeType][id]
-              ?.find((el) => el
+      <div className="checkbox-container">
+        {ingredientsArray
+          .filter((e) => e !== '')
+          .map((e, index) => (
+            <div key={ index }>
+              <label
+                htmlFor={ `${index}-ingredients-checkbox` }
+                data-testid={ `${index}-ingredient-step` }
+                className={ recipeHistory[recipeType][id]
+                  ?.find((el) => el
               === `${unchangedArray[e]} - ${unchangedArray[measuresArray[index]]}`)
-              ? 'label-checkbox' : 'label-checkbox-2' }
-          >
-            <input
-              name={ `${index}-ingredients-checkbox` }
-              type="checkbox"
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              onChange={ () => handleCheckbox(
-                `${unchangedArray[e]} - ${unchangedArray[measuresArray[index]]}`,
-              ) }
-              checked={ recipeHistory[recipeType][id]
-                ?.find((el) => el
+                  ? 'label-checkbox' : 'label-checkbox-2' }
+              >
+                <input
+                  name={ `${index}-ingredients-checkbox` }
+                  type="checkbox"
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  onChange={ () => handleCheckbox(
+                    `${unchangedArray[e]} - ${unchangedArray[measuresArray[index]]}`,
+                  ) }
+                  checked={ recipeHistory[recipeType][id]
+                    ?.find((el) => el
                 === `${unchangedArray[e]} - ${unchangedArray[measuresArray[index]]}`) }
-            />
-            { `${unchangedArray[e]} - ` }
-            { unchangedArray[measuresArray[index]] }
-          </label>
-        ))}
+                />
+                { `${unchangedArray[e]} - ` }
+                { unchangedArray[measuresArray[index]] }
+              </label>
+            </div>
+          ))}
+      </div>
       <p data-testid="instructions">{ instruction }</p>
       { recipeType === 'meals' ? (
         <video

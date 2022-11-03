@@ -5,3 +5,23 @@
 .label-checkbox-2 {
   text-decoration: 'none';
 }
+
+.in-proccess-card {
+  padding: 10px 15px;
+  width: 100%;
+}
+
+.in-proccess-card img {
+  width: 100%;
+}
+
+.in-proccess-card p {
+  border: 1px solid var(--cinza);
+  padding: 10px;
+}
+
+.in-proccess-card .checkbox-container {
+  border: 1px solid var(--cinza);
+  margin: 15px 0;
+  padding: 10px;
+}

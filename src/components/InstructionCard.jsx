@@ -13,7 +13,7 @@ function InstructionCard({
   measuresArray,
   unchangedArray }) {
   return (
-    <div>
+    <div className="instruction-card">
       {/* {console.log(ingredientsArray)}
       {console.log(measuresArray)} */}
       <img data-testid="recipe-photo" src={ imgSrc } alt={ name } />
