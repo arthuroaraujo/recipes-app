@@ -1,7 +1,7 @@
 import React, { } from 'react';
 import drinkImage from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import '../styles/BottomMenu.css';
+import '../styles/Footer.css';
 
 function BottomMenu() {
   return (

@@ -1,5 +1,6 @@
 footer {
   align-items: center;
+  background-color: var(--roxo);
   bottom: 0;
   display: flex;
   flex-wrap: wrap;
@@ -8,3 +9,4 @@ footer {
   position: fixed;
   width: 100%;
 }
+
