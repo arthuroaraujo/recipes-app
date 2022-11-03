@@ -1,0 +1,32 @@
+.search-bar-container {
+  background-color: var(--roxo);
+  border-radius: 10px;
+  color: white;
+  margin: 10px 0;
+  padding: 0 0 10px;
+}
+
+.search-bar-container input {
+  border: 2px solid var(--cinza);
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+}
+
+.search-bar-container button {
+  background-color: var(--amarelo);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 5px auto;
+  max-width: 200px;
+  width: 100%;
+}
+
+.search-radio-container {
+  font-weight: 400;
+  padding-top: 5px;
+  text-align: center;
+}
