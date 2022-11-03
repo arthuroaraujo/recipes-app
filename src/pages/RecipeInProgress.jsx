@@ -9,7 +9,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function InProgress() {
+function RecipeInProgress() {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [recipeType, setRecipeType] = useState('');
   const [recipeType2, setRecipeType2] = useState('');
@@ -130,8 +130,26 @@ function InProgress() {
     }
   };
 
-  const handleFinish = () => { history.push('/done-recipes'); };
-  // pegar modelo favs, adicionar data e tags
+  const handleFinish = () => {
+    history.push('/done-recipes');
+    if (recipeDetails) {
+      const prevDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+      const newDoneRecipes = {
+        id: recipeDetails?.idDrink || recipeDetails?.idMeal,
+        type: recipeType2,
+        nationality: recipeDetails?.strArea || '',
+        category: recipeDetails?.strCategory,
+        alcoholicOrNot: recipeDetails?.strAlcoholic || '',
+        name: recipeDetails?.strDrink || recipeDetails?.strMeal,
+        image: recipeDetails?.strMealThumb || recipeDetails?.strDrinkThumb,
+        doneDate: new Date(),
+        tags: recipeDetails?.strTags?.split(',') || [],
+      };
+      localStorage
+        .setItem('doneRecipes', JSON.stringify([...prevDoneRecipes, newDoneRecipes]));
+    }
+  };
+
   return (
     <div>
 
@@ -199,4 +217,4 @@ function InProgress() {
   );
 }
 
-export default InProgress;
+export default RecipeInProgress;

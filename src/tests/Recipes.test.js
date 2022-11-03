@@ -13,6 +13,7 @@ describe('Testes da tela principal de receitas para drinks', () => {
     await waitFor(() => {
       screen.findByRole('button', { name: /cocoa/i });
     }, { timeout: 8000 });
+
     const allCards = await screen.findAllByTestId(/recipe-card/i, { exact: false });
     expect(allCards).toHaveLength(12);
   }, 10000);
@@ -40,7 +41,12 @@ describe('Testes da tela principal de receitas para drinks', () => {
     const allButton = screen.getByTestId('All-category-filter');
     userEvent.click(allButton);
 
+    await waitFor(() => {
+      screen.getByRole('img', { name: /gg/i });
+    }, { timeout: 8000 });
+
     const cocoaButton = screen.getByTestId('Cocoa-category-filter');
+    expect(cocoaButton).toBeInTheDocument();
     userEvent.click(cocoaButton);
 
     await waitFor(() => {
