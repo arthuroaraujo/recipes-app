@@ -10,3 +10,8 @@ footer {
   width: 100%;
 }
 
+footer .img-footer {
+  filter: invert(89%)
+    sepia(13%)
+    saturate(4463%) hue-rotate(330deg) brightness(104%) contrast(98%);
+}

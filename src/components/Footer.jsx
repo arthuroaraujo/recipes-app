@@ -8,6 +8,7 @@ function BottomMenu() {
     <footer data-testid="footer">
       <a href="/drinks">
         <img
+          className="img-footer"
           src={ drinkImage }
           alt="Bebidas"
           data-testid="drinks-bottom-btn"
@@ -16,6 +17,7 @@ function BottomMenu() {
       </a>
       <a href="/meals">
         <img
+          className="img-footer"
           src={ mealIcon }
           alt="Comidas"
           data-testid="meals-bottom-btn"

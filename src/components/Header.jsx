@@ -36,7 +36,11 @@ function Header() {
             src={ profile }
             onClick={ handleClick }
           >
-            <img src={ profile } alt="profile-button" />
+            <img
+              src={ profile }
+              alt="profile-button"
+              className="img-profile-search"
+            />
 
           </button>
           {pages.includes(getTitle()) ? null : (
@@ -46,7 +50,11 @@ function Header() {
               src={ search }
               onClick={ () => setSearchInput((prevState) => !prevState) }
             >
-              <img src={ search } alt="search-button" />
+              <img
+                className="img-profile-search"
+                src={ search }
+                alt="search-button"
+              />
 
             </button>
           )}
