@@ -12,7 +12,7 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
-import InProgress from './pages/InProgress';
+import InProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
