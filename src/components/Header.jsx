@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { BiDish } from 'react-icons/bi';
+import { BiDish, BiDrink } from 'react-icons/bi';
 import { GiKnifeFork } from 'react-icons/gi';
 import AppContext from '../context/AppContext';
 import profile from '../images/profileIcon.svg';
@@ -53,9 +53,15 @@ function Header() {
         </div>
       </div>
       <p className="fork-icon">
-        <GiKnifeFork
-          style={ { fontSize: '3em', margin: '0 auto' } }
-        />
+        { getTitle(id) === 'Meals' && (
+          <GiKnifeFork
+            style={ { fontSize: '3em', margin: '0 auto' } }
+          />)}
+        {getTitle(id) === 'Drinks' && (
+          <BiDrink
+            style={ { fontSize: '3em', margin: '0 auto' } }
+          />
+        )}
       </p>
       <h1
         data-testid="page-title"

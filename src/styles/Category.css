@@ -1,0 +1,10 @@
+.categories-container {
+  text-align: center;
+}
+
+.categories-container button {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--cinza);
+  font-weight: 600;
+}
