@@ -21,7 +21,6 @@ function RecipeDetails() {
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const [isInProgress, setIsInProgress] = useState(false);
-
   const { id } = useParams();
   const { pathname } = useLocation();
   const history = useHistory();
@@ -32,7 +31,6 @@ function RecipeDetails() {
   const five = 5;
   const six = 6;
   const minusOne = -1;
-
   const ingredientsToArray = (ingredients) => {
     const ingredientList = Object.keys(ingredients)
       .filter((e) => e.includes('strIngredient'));
@@ -152,7 +150,7 @@ function RecipeDetails() {
         drinkCategory={ recipeDetails?.strAlcoholic || [] }
         instruction={ recipeDetails?.strInstructions || [] }
         recipeType={ recipeType }
-        videoSrc={ recipeDetails?.strSource || [] }
+        videoSrc={ recipeDetails?.strYoutube || [] }
         ingredientsArray={ arrayOfIngredients }
         measuresArray={ arrayOfMeasures }
       /> }

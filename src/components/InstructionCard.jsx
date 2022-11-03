@@ -14,22 +14,21 @@ function InstructionCard({
   unchangedArray }) {
   return (
     <div className="instruction-card">
-      {/* {console.log(ingredientsArray)}
-      {console.log(measuresArray)} */}
       <img data-testid="recipe-photo" src={ imgSrc } alt={ name } />
       <h2 data-testid="recipe-title">{ name }</h2>
       {recipeType === 'meals' ? <p data-testid="recipe-category">{ mealCategory }</p>
         : <p data-testid="recipe-category">{ drinkCategory }</p>}
       <ul>
-        {ingredientsArray.map((e, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ index }
-          >
-            { `${unchangedArray[e]} - ` }
-            { unchangedArray[measuresArray[index]] }
-          </li>
-        ))}
+        {ingredientsArray
+          .filter((ingr) => unchangedArray[ingr] !== '').map((e, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ index }
+            >
+              { `${unchangedArray[e]} - ` }
+              { unchangedArray[measuresArray[index]] }
+            </li>
+          ))}
       </ul>
       <p data-testid="instructions">{ instruction }</p>
       { recipeType === 'meals' ? (
