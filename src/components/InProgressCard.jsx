@@ -68,7 +68,7 @@ function InProgressCard({
   };
 
   return (
-    <div className="in-proccess-card">
+    <div className="in-proccess-card content">
       <img data-testid="recipe-photo" src={ imgSrc } alt={ name } />
       <h2 data-testid="recipe-title">{ name }</h2>
       {recipeType === 'meals' ? <p data-testid="recipe-category">{ mealCategory }</p>
