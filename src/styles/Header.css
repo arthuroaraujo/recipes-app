@@ -1,0 +1,33 @@
+.header {
+  align-items: center;
+  background-color: var(--amarelo);
+  color: var(--roxo);
+  display: flex;
+  justify-content: space-between;
+  min-height: 70px;
+  width: 100%;
+}
+
+.header img {
+  color: var(--roxo);
+  font-size: 20px;
+}
+
+header h1 {
+  color: var(--roxo);
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+}
+
+.container-search-icon button {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.fork-icon {
+  color: var(--roxo);
+  font-size: 1.2em;
+  margin: 10px auto;
+  text-align: center;
+}
