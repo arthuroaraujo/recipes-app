@@ -194,52 +194,44 @@ function RecipeDetails() {
           &#10095;
 
         </button>
+      </div>
+      <div className="recipes-buttons">
         <button
           type="button"
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
           onClick={ () => history.push(`/${recipeType}/${id}/in-progress`) }
-          style={ { position: 'fixed',
-            zIndex: 2,
-            bottom: 0 } }
         >
           {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
         </button>
-        <div
-          style={ { position: 'fixed',
-            zIndex: 2,
-            bottom: 0,
-            marginLeft: '300px' } }
+        <button
+          type="button"
+          data-testid="share-btn"
+          src={ shareIcon }
+          onClick={ handleShareButton }
         >
+          <img src={ shareIcon } alt="search-button" />
+        </button>
+        { isCopied && <span>Link copied!</span>}
+        { isFavorited ? (
           <button
             type="button"
-            data-testid="share-btn"
-            src={ shareIcon }
-            onClick={ handleShareButton }
+            data-testid="favorite-btn"
+            src={ blackHeartIcon }
+            onClick={ handleFavoriteButton }
           >
-            <img src={ shareIcon } alt="search-button" />
+            <img src={ blackHeartIcon } alt="search-button" />
           </button>
-          { isCopied && <span>Link copied!</span>}
-          { isFavorited ? (
-            <button
-              type="button"
-              data-testid="favorite-btn"
-              src={ blackHeartIcon }
-              onClick={ handleFavoriteButton }
-            >
-              <img src={ blackHeartIcon } alt="search-button" />
-            </button>
-          ) : (
-            <button
-              type="button"
-              data-testid="favorite-btn"
-              src={ whiteHeartIcon }
-              onClick={ handleFavoriteButton }
-            >
-              <img src={ whiteHeartIcon } alt="search-button" />
-            </button>
-          ) }
-        </div>
+        ) : (
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            src={ whiteHeartIcon }
+            onClick={ handleFavoriteButton }
+          >
+            <img src={ whiteHeartIcon } alt="search-button" />
+          </button>
+        ) }
       </div>
     </div>
   );

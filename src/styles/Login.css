@@ -5,10 +5,22 @@
   justify-content: center;
 }
 
+
 .form-login {
   max-width: 360px;
   padding: 10px;
   width: 100%;
+}
+
+.form-login .logo {
+  color: var(--roxo);
+  font-size: 5em;
+  margin-bottom: 90px;
+  text-align: center;
+}
+
+.form-login p {
+  font-size: 35px;
 }
 
 .form-login input {

@@ -26,41 +26,43 @@ function MainContent() {
   }, [profile]);
 
   return (
-    <main className="main-content">
+    <main className="main-content-profile">
       <h2 data-testid="profile-email">{ profile }</h2>
-      <button
-        type="button"
-        data-testid="profile-done-btn"
-        data-url="/done-recipes"
-        onClick={ redirect }
-      >
-        <IoMdCheckmarkCircleOutline
-          style={ { fontSize: '2em', pointerEvents: 'none' } }
-        />
-        Done Recipes
-      </button>
-      <button
-        type="button"
-        data-testid="profile-favorite-btn"
-        data-url="/favorite-recipes"
-        onClick={ redirect }
-      >
-        <BsBookmarkHeart
-          style={ { fontSize: '2em', pointerEvents: 'none' } }
-        />
-        Favorite Recipes
-      </button>
-      <button
-        type="button"
-        data-testid="profile-logout-btn"
-        data-url="/"
-        onClick={ logout }
-      >
-        <FiLogOut
-          style={ { fontSize: '2em', pointerEvents: 'none' } }
-        />
-        Logout
-      </button>
+      <div className="container-buttons">
+        <button
+          type="button"
+          data-testid="profile-done-btn"
+          data-url="/done-recipes"
+          onClick={ redirect }
+        >
+          <IoMdCheckmarkCircleOutline
+            style={ { fontSize: '2em', pointerEvents: 'none', color: '#fcdc36' } }
+          />
+          Done Recipes
+        </button>
+        <button
+          type="button"
+          data-testid="profile-favorite-btn"
+          data-url="/favorite-recipes"
+          onClick={ redirect }
+        >
+          <BsBookmarkHeart
+            style={ { fontSize: '2em', pointerEvents: 'none', color: '#fcdc36' } }
+          />
+          Favorite Recipes
+        </button>
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          data-url="/"
+          onClick={ logout }
+        >
+          <FiLogOut
+            style={ { fontSize: '2em', pointerEvents: 'none', color: '#fcdc36' } }
+          />
+          Logout
+        </button>
+      </div>
     </main>
   );
 }

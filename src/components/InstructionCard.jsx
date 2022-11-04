@@ -13,8 +13,10 @@ function InstructionCard({
   measuresArray,
   unchangedArray }) {
   return (
-    <div className="instruction-card">
-      <img data-testid="recipe-photo" src={ imgSrc } alt={ name } />
+    <div className="instruction-card content">
+      <div className="img-container">
+        <img data-testid="recipe-photo" src={ imgSrc } alt={ name } />
+      </div>
       <h2 data-testid="recipe-title">{ name }</h2>
       {recipeType === 'meals' ? <p data-testid="recipe-category">{ mealCategory }</p>
         : <p data-testid="recipe-category">{ drinkCategory }</p>}

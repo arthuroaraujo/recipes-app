@@ -55,7 +55,7 @@ function SearchBar() {
   };
 
   return (
-    <div className="search-bar-container">
+    <div className="search-bar-container content">
       {mealIngredients.length === 1 && <Redirect
         to={ `/meals/${mealIngredients[0].idMeal}` }
       />}

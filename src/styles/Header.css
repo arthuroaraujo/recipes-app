@@ -7,9 +7,16 @@ header {
   background-color: var(--amarelo);
   color: var(--roxo);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   min-height: 70px;
+  padding: 0 10px;
   width: 100%;
+}
+
+.header p {
+  font-size: 1.7em;
+  margin: 0;
+
 }
 
 .header img {

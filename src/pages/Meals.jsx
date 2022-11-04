@@ -18,26 +18,28 @@ function Meals() {
   };
 
   return (
-    <div className="content-container">
+    <>
       <Header />
-      <Categories />
-      <main className="main-content">
-        {searchInput && mealIngredients.length !== 0 ? null : <Recipes />}
-        {error && alertWarning()}
-        {mealIngredients ? mealIngredients
-          .slice(0, twelve)
-          .map((meal, index) => (
-            <Card
-              link={ `/meals/${meal.idMeal}` }
-              key={ meal.idMeal }
-              name={ meal.strMeal }
-              src={ meal.strMealThumb }
-              index={ index }
-            />
-          )) : null}
-      </main>
+      <div className="content-container content">
+        <Categories />
+        <main className="main-content">
+          {searchInput && mealIngredients.length !== 0 ? null : <Recipes />}
+          {error && alertWarning()}
+          {mealIngredients ? mealIngredients
+            .slice(0, twelve)
+            .map((meal, index) => (
+              <Card
+                link={ `/meals/${meal.idMeal}` }
+                key={ meal.idMeal }
+                name={ meal.strMeal }
+                src={ meal.strMealThumb }
+                index={ index }
+              />
+            )) : null}
+        </main>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

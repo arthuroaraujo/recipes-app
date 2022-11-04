@@ -6,9 +6,18 @@
   text-decoration: 'none';
 }
 
+.label-checkbox-2 input {
+  margin-right: 8px;
+}
+
 .in-proccess-card {
   padding: 10px 15px;
   width: 100%;
+}
+
+.in-proccess-card .container-img {
+  height: 300px;
+  overflow: hidden;
 }
 
 .in-proccess-card img {
@@ -24,4 +33,11 @@
   border: 1px solid var(--cinza);
   margin: 15px 0;
   padding: 10px;
+}
+
+@media ( min-width : 640px ) {
+
+  .in-proccess-card .container-img {
+    height: 450px;
+  }
 }

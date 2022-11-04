@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { BiDish } from 'react-icons/bi';
 import AppContext from '../context/AppContext';
 import '../styles/Login.css';
 
@@ -35,6 +36,15 @@ function Login() {
   return (
     <div className="form-login-container">
       <form onSubmit={ handleClick } className="form-login">
+        <div className="logo">
+          <BiDish />
+          <p>
+            <strong>
+              JSON
+            </strong>
+            .foodify()
+          </p>
+        </div>
         <h2 className="title">Login</h2>
         <input
           data-testid="email-input"

@@ -28,7 +28,12 @@ function Header() {
             style={ { height: '60px', width: '60px' } }
           />
         </div>
-        <p>JSON.foodify()</p>
+        <p>
+          <strong>
+            JSON
+          </strong>
+          .foodify()
+        </p>
         <div className="container-search-icon">
           <button
             type="button"
@@ -36,12 +41,7 @@ function Header() {
             src={ profile }
             onClick={ handleClick }
           >
-            <img
-              src={ profile }
-              alt="profile-button"
-              className="img-profile-search"
-            />
-
+            <img src={ profile } alt="profile-button" className="img-profile-search" />
           </button>
           {pages.includes(getTitle()) ? null : (
             <button
