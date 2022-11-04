@@ -59,13 +59,13 @@ function FavoriteRecipes() {
           id={ e?.id }
           key={ e?.id }
           index={ index }
-          name={ e?.name || '' }
-          imgSrc={ e?.image || '' }
-          category={ e?.category || '' }
+          name={ e?.name }
+          imgSrc={ e?.image }
+          category={ e?.category }
           nationality={ e?.nationality || '' }
-          type={ e?.type || '' }
+          type={ e?.type }
           setIsStateChanged={ setIsStateChanged }
-          alcoholicOrNot={ e?.alcoholicOrNot || '' }
+          alcoholicOrNot={ e?.alcoholicOrNot }
         />
       ))}
     </div>

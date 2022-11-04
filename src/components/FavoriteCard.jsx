@@ -25,7 +25,7 @@ function FavoriteCard({ index,
   };
 
   const handleFavoriteButton = () => {
-    const prevFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const prevFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
     const filteredFavRecipes = prevFavRecipes.filter((e) => +(e.id) !== +(id));
 
