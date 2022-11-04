@@ -171,11 +171,16 @@ function RecipeInProgress() {
         setIngredQnt={ setIngredQnt }
       /> }
       <div
-        style={ { position: 'fixed',
-          zIndex: 2,
-          bottom: 0,
-          marginLeft: '300px' } }
+        className="recipes-buttons"
       >
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ ingredQnt > ingredDoneQnt }
+          onClick={ handleFinish }
+        >
+          Finish Recipe
+        </button>
         <button
           type="button"
           data-testid="share-btn"
@@ -204,14 +209,6 @@ function RecipeInProgress() {
             <img src={ whiteHeartIcon } alt="search-button" />
           </button>
         ) }
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          disabled={ ingredQnt > ingredDoneQnt }
-          onClick={ handleFinish }
-        >
-          Finish Recipe
-        </button>
       </div>
     </div>
   );

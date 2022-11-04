@@ -21,7 +21,6 @@ function RecipeDetails() {
   const [isCopied, setIsCopied] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const [isInProgress, setIsInProgress] = useState(false);
-
   const { id } = useParams();
   const { pathname } = useLocation();
   const history = useHistory();
@@ -32,7 +31,6 @@ function RecipeDetails() {
   const five = 5;
   const six = 6;
   const minusOne = -1;
-
   const ingredientsToArray = (ingredients) => {
     const ingredientList = Object.keys(ingredients)
       .filter((e) => e.includes('strIngredient'));
@@ -152,7 +150,7 @@ function RecipeDetails() {
         drinkCategory={ recipeDetails?.strAlcoholic || [] }
         instruction={ recipeDetails?.strInstructions || [] }
         recipeType={ recipeType }
-        videoSrc={ recipeDetails?.strSource || [] }
+        videoSrc={ recipeDetails?.strYoutube || [] }
         ingredientsArray={ arrayOfIngredients }
         measuresArray={ arrayOfMeasures }
       /> }
@@ -196,52 +194,44 @@ function RecipeDetails() {
           &#10095;
 
         </button>
+      </div>
+      <div className="recipes-buttons">
         <button
           type="button"
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
           onClick={ () => history.push(`/${recipeType}/${id}/in-progress`) }
-          style={ { position: 'fixed',
-            zIndex: 2,
-            bottom: 0 } }
         >
           {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
         </button>
-        <div
-          style={ { position: 'fixed',
-            zIndex: 2,
-            bottom: 0,
-            marginLeft: '300px' } }
+        <button
+          type="button"
+          data-testid="share-btn"
+          src={ shareIcon }
+          onClick={ handleShareButton }
         >
+          <img src={ shareIcon } alt="search-button" />
+        </button>
+        { isCopied && <span>Link copied!</span>}
+        { isFavorited ? (
           <button
             type="button"
-            data-testid="share-btn"
-            src={ shareIcon }
-            onClick={ handleShareButton }
+            data-testid="favorite-btn"
+            src={ blackHeartIcon }
+            onClick={ handleFavoriteButton }
           >
-            <img src={ shareIcon } alt="search-button" />
+            <img src={ blackHeartIcon } alt="search-button" />
           </button>
-          { isCopied && <span>Link copied!</span>}
-          { isFavorited ? (
-            <button
-              type="button"
-              data-testid="favorite-btn"
-              src={ blackHeartIcon }
-              onClick={ handleFavoriteButton }
-            >
-              <img src={ blackHeartIcon } alt="search-button" />
-            </button>
-          ) : (
-            <button
-              type="button"
-              data-testid="favorite-btn"
-              src={ whiteHeartIcon }
-              onClick={ handleFavoriteButton }
-            >
-              <img src={ whiteHeartIcon } alt="search-button" />
-            </button>
-          ) }
-        </div>
+        ) : (
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            src={ whiteHeartIcon }
+            onClick={ handleFavoriteButton }
+          >
+            <img src={ whiteHeartIcon } alt="search-button" />
+          </button>
+        ) }
       </div>
     </div>
   );

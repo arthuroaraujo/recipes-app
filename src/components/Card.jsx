@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 function Card({ index, src, name, link }) {
   return (
     <div
+      className="recipe-card"
       data-testid={ `${index}-recipe-card` }
     >
       <Link to={ link }>

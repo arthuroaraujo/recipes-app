@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { BiDish } from 'react-icons/bi';
 import AppContext from '../context/AppContext';
+import '../styles/Login.css';
+import logo from '../images/login-wallpaper.jpg';
 
 function Login() {
   const history = useHistory();
@@ -32,33 +35,49 @@ function Login() {
   };
 
   return (
-    <form onSubmit={ handleClick }>
-      <label htmlFor="email">
+    <div
+      className="form-login-container"
+      style={ {
+        backgroundImage: `url(${logo})`,
+        backgroundSize: 'cover',
+      } }
+    >
+      <form onSubmit={ handleClick } className="form-login">
+        <div className="logo">
+          <BiDish />
+          <p>
+            <strong>
+              JSON
+            </strong>
+            .foodify()
+          </p>
+        </div>
+        <h2 className="title">Login</h2>
         <input
           data-testid="email-input"
           type="email"
           name="email"
           onChange={ handleChange }
           value={ email }
+          placeholder="Email"
         />
-      </label>
-      <label htmlFor="password">
         <input
           data-testid="password-input"
           type="password"
           name="password"
           onChange={ handleChange }
           value={ password }
+          placeholder="Password"
         />
-      </label>
-      <button
-        data-testid="login-submit-btn"
-        type="submit"
-        disabled={ isDisabledButton }
-      >
-        Enter
-      </button>
-    </form>
+        <button
+          data-testid="login-submit-btn"
+          type="submit"
+          disabled={ isDisabledButton }
+        >
+          Enter
+        </button>
+      </form>
+    </div>
   );
 }
 

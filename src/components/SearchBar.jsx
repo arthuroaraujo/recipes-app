@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import AppContext from '../context/AppContext';
+import '../styles/SearchBar.css';
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
@@ -54,7 +55,7 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div className="search-bar-container content">
       {mealIngredients.length === 1 && <Redirect
         to={ `/meals/${mealIngredients[0].idMeal}` }
       />}
@@ -67,46 +68,49 @@ function SearchBar() {
         value={ searchInput }
         onChange={ ({ target }) => setSearchInput(target.value) }
       />
-      <label htmlFor="ingredient-search-radio">
-        Ingredient
-        <input
-          type="radio"
-          name="search-radio"
-          id="ingredient-search-radio"
-          data-testid="ingredient-search-radio"
-          value="ingredient-search-radio"
-          onChange={ ({ target }) => setSearchRadio(target.value) }
-        />
-      </label>
-      <label htmlFor="name-search-radio">
-        Name
-        <input
-          type="radio"
-          name="search-radio"
-          id="name-search-radio"
-          data-testid="name-search-radio"
-          value="name-search-radio"
-          onChange={ ({ target }) => setSearchRadio(target.value) }
-        />
-      </label>
-      <label htmlFor="first-letter-search-radio">
-        First letter
-        <input
-          type="radio"
-          name="search-radio"
-          id="first-letter-search-radio"
-          data-testid="first-letter-search-radio"
-          value="first-letter-search-radio"
-          onChange={ ({ target }) => setSearchRadio(target.value) }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ handleClick }
-      >
-        Search
-      </button>
+      <div className="search-radio-container">
+        <label htmlFor="ingredient-search-radio">
+          Ingredient
+          <input
+            type="radio"
+            name="search-radio"
+            id="ingredient-search-radio"
+            data-testid="ingredient-search-radio"
+            value="ingredient-search-radio"
+            onChange={ ({ target }) => setSearchRadio(target.value) }
+          />
+        </label>
+        <label htmlFor="name-search-radio">
+          Name
+          <input
+            type="radio"
+            name="search-radio"
+            id="name-search-radio"
+            data-testid="name-search-radio"
+            value="name-search-radio"
+            onChange={ ({ target }) => setSearchRadio(target.value) }
+          />
+        </label>
+        <label htmlFor="first-letter-search-radio">
+          First letter
+          <input
+            type="radio"
+            name="search-radio"
+            id="first-letter-search-radio"
+            data-testid="first-letter-search-radio"
+            value="first-letter-search-radio"
+            onChange={ ({ target }) => setSearchRadio(target.value) }
+          />
+        </label>
+        <br />
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ handleClick }
+        >
+          Search
+        </button>
+      </div>
     </div>
   );
 }

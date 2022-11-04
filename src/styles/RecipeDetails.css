@@ -81,8 +81,70 @@
 }
 
 
-/* .start-recipe.btn {
+.start-recipe-btn {
   position: fixed;
   z-index: 2;
-  bottom: 0
-} */
+  bottom: 0;
+  margin-bottom: 10px;
+}
+
+
+.instruction-card {
+  padding: 0 10px;
+  position: relative;
+  text-align: center;
+}
+
+.instruction-card img {
+  width: 100%;
+}
+
+.instruction-card .img-container {
+  height: 300px;
+  overflow: hidden;
+}
+
+.instruction-card ul, .instruction-card p {
+  border: 1px solid var(--cinza);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.instruction-card ul li {
+  list-style: none;
+}
+
+.instruction-card h2 {
+  font-weight: 600;
+}
+
+.recipes-buttons {
+  background-color: var(--amarelo);
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+
+.recipes-buttons button {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.recipes-buttons button:first-child {
+  border: 2px solid var(--cinza-escuro);
+  border-radius: 5px;
+  color: var(--cinza-escuro);
+  font-weight: 500;
+  padding: 10px;
+}
+
+@media ( min-width : 640px ) {
+
+  .instruction-card .img-container {
+    height: 500px;
+  }
+}
