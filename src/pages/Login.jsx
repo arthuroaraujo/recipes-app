@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { BiDish } from 'react-icons/bi';
 import AppContext from '../context/AppContext';
 import '../styles/Login.css';
+import logo from '../images/login-wallpaper.jpg';
 
 function Login() {
   const history = useHistory();
@@ -34,7 +35,13 @@ function Login() {
   };
 
   return (
-    <div className="form-login-container">
+    <div
+      className="form-login-container"
+      style={ {
+        backgroundImage: `url(${logo})`,
+        backgroundSize: 'cover',
+      } }
+    >
       <form onSubmit={ handleClick } className="form-login">
         <div className="logo">
           <BiDish />
