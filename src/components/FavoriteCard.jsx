@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 // import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../styles/FavoriteCard.css';
 
 function FavoriteCard({ index,
   name,
@@ -34,10 +36,13 @@ function FavoriteCard({ index,
 
   return (
     <div className="favorite-card">
-      <div className="image-container">
-        <img data-testid={ `${index}-horizontal-image` } src={ imgSrc } alt={ name } />
-      </div>
-      <h4 data-testid={ `${index}-horizontal-name` }>{ name }</h4>
+      <Link to={ `${type}s/${id}` }>
+        <div className="image-container">
+
+          <img data-testid={ `${index}-horizontal-image` } src={ imgSrc } alt={ name } />
+        </div>
+        <h4 data-testid={ `${index}-horizontal-name` }>{ name }</h4>
+      </Link>
       <h4
         data-testid={ `${index}-horizontal-top-text` }
       >
