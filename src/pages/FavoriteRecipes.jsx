@@ -53,6 +53,7 @@ function FavoriteRecipes() {
           alcoholicOrNot={ e?.alcoholicOrNot || '' }
         />
       ))}
+      {console.log(favoriteHistory)}
     </div>
   );
 }
