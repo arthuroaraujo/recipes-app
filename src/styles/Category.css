@@ -6,6 +6,6 @@
 .categories-container button {
   background-color: transparent;
   border-color: transparent;
-  color: var(--cinza);
+  color: var(--cinza-escuro);
   font-weight: 600;
 }
