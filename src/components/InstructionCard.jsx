@@ -22,7 +22,8 @@ function InstructionCard({
         : <p data-testid="recipe-category">{ drinkCategory }</p>}
       <ul>
         {ingredientsArray
-          .filter((ingr) => unchangedArray[ingr] !== '').map((e, index) => (
+          .filter((ingr) => unchangedArray[ingr] !== ''
+          && unchangedArray[ingr] !== null).map((e, index) => (
             <li
               data-testid={ `${index}-ingredient-name-and-measure` }
               key={ index }
