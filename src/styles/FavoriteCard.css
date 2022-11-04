@@ -1,7 +1,7 @@
 .image-container {
-    max-width: 360px;
+  max-width: 360px;
 }
 
-.image-container img{
-    max-width: 40%;
+.image-container img {
+  max-width: 40%;
 }
