@@ -123,4 +123,15 @@ describe('Testando a Recipe Details', () => {
     userEvent.click(favoriteButtonElement);
     userEvent.click(favoriteButtonElement);
   }, 10000);
+  test('Testando pesquisa errada em drinks', async () => {
+    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+    const searchButtonElement = screen.getByTestId(searchTopBtn);
+    userEvent.click(searchButtonElement);
+    const searchBarElement = screen.getByTestId(searchInput);
+    const radioNameElement = screen.getByTestId(nameSearchRadio);
+    const getResultButtonElement = screen.getByTestId(execSearchButton);
+    userEvent.type(searchBarElement, 'Beef and Mustard Pie');
+    userEvent.click(radioNameElement);
+    userEvent.click(getResultButtonElement);
+  }, 10000);
 });
