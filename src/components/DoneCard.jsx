@@ -24,43 +24,47 @@ function DoneCard({ index,
   };
 
   return (
-    <div className="favorite-card">
+    <div className="done-card">
       <Link to={ `${type}s/${id}` }>
         <div className="image-container">
-
           <img data-testid={ `${index}-horizontal-image` } src={ imgSrc } alt={ name } />
         </div>
-        <h4 data-testid={ `${index}-horizontal-name` }>{ name }</h4>
       </Link>
-      <p
-        data-testid={ `${index}-horizontal-top-text` }
-      >
-        { `${nationality} - ${category} - ${alcoholicOrNot}` }
-      </p>
-      <p
-        data-testid={ `${index}-horizontal-done-date` }
-      >
-        { doneDate }
-      </p>
-      <div>
-        { tags.slice(0, 2).map((e) => (
-          <span
-            key={ e }
-            data-testid={ `${index}-${e}-horizontal-tag` }
-          >
-            { `#${e} ` }
-          </span>
-        )) }
+      <div className="done-info">
+        <Link to={ `${type}s/${id}` }>
+          <h4 data-testid={ `${index}-horizontal-name` }>{ name }</h4>
+        </Link>
+        <p
+          data-testid={ `${index}-horizontal-top-text` }
+        >
+          { `${nationality} - ${category} - ${alcoholicOrNot}` }
+        </p>
+        <p
+          data-testid={ `${index}-horizontal-done-date` }
+        >
+          { doneDate }
+        </p>
+        <div className="hash-container">
+          { tags.slice(0, 2).map((e) => (
+            <span
+              key={ e }
+              data-testid={ `${index}-${e}-horizontal-tag` }
+            >
+              { `#${e} ` }
+            </span>
+          )) }
+        </div>
+        <button
+          type="button"
+          data-testid={ `${index}-horizontal-share-btn` }
+          src={ shareIcon }
+          onClick={ handleShareButton }
+          className="share-button"
+        >
+          <img src={ shareIcon } alt="search-button" />
+        </button>
+        { isCopied && <span>Link copied!</span>}
       </div>
-      <button
-        type="button"
-        data-testid={ `${index}-horizontal-share-btn` }
-        src={ shareIcon }
-        onClick={ handleShareButton }
-      >
-        <img src={ shareIcon } alt="search-button" />
-      </button>
-      { isCopied && <span>Link copied!</span>}
     </div>
   );
 }

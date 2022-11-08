@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DoneCard from '../components/DoneCard';
 import Header from '../components/Header';
+import '../styles/DoneRecipes.css';
 
 function DoneRecipes() {
   const [doneHistory, setDoneHistory] = useState([]);
