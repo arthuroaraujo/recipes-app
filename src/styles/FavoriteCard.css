@@ -1,7 +1,57 @@
 .image-container {
-  max-width: 360px;
+  width: 160px;
 }
 
 .image-container img {
-  max-width: 40%;
+  max-width: 100%;
 }
+
+.filter-buttons-container {
+  display: flex;
+  justify-content: center;
+}
+
+.filter-buttons-container button {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--cinza-escuro);
+  font-weight: 600;
+}
+
+.favorite-card {
+  border: 1px solid var(--cinza);
+  border-radius: 10px;
+  display: flex;
+  margin: 8px auto;
+  max-width: 360px;
+  width: 100%;
+}
+
+.favorite-card h4 {
+  padding: 5px 10px;
+}
+
+.favorite-card a {
+  color: black;
+  text-decoration: none;
+}
+
+.favorite-card img {
+  width: 100%;
+}
+
+.favorite-card .favorite-info button {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.favorite-card .favorite-info h4:nth-child( 2 ) {
+  font-size: 16px;
+}
+
+.main-content div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
