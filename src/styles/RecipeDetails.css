@@ -2,32 +2,32 @@
 
 /* Slideshow container */
 .slideshow-container {
+  display: flex;
   margin: 20px auto;
   max-height: 680px;
   max-width: 360px;
-  position: relative;
-  display: flex;
   padding-bottom: 90px;
+  position: relative;
 }
 
 /* Hide the images by default */
 .mySlides {
-  display: none;
   border: 1px solid var(--cinza);
   border-radius: 10px;
+  display: none;
   margin: 3px;
   overflow: hidden;
 }
 
 .mySlides h4 {
+  color: var(--cinza-escuro);
   font-size: 16px;
   margin: 3px 10px;
-  color: var(--cinza-escuro);
 }
 
 .mySlides img {
-  width: 100%;
   max-width: 164.5px;
+  width: 100%;
 }
 
 /* Next & previous buttons */
@@ -116,10 +116,10 @@
 }
 
 .recipes-buttons button:first-child {
+  background-color: var(--roxo);
   border: 2px solid var(--roxo);
   border-radius: 5px;
   color: white;
-  background-color: var(--roxo);
   font-weight: 500;
   padding: 10px;
 }
@@ -127,7 +127,6 @@
 .recipes-buttons button:first-child:disabled {
   background-color: var(--amarelo);
   border: 1px solid var(--amarelo);
-  border: 2px solid var(--cinza-escuro);
   color: var(--cinza-escuro);
 }
 
