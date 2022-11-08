@@ -175,6 +175,7 @@ function RecipeInProgress() {
       >
         <button
           type="button"
+          className="finish-recipe-btn"
           data-testid="finish-recipe-btn"
           disabled={ ingredQnt > ingredDoneQnt }
           onClick={ handleFinish }
